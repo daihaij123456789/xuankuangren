@@ -2,27 +2,24 @@ import React from 'react'
 import { Router, Route, IndexRoute } from 'react-router'
 
 import App from '../containers'
-import PcHome from '../containers/Home/pc_index'
 import MbHome from '../containers/Home/mb_index'
-import PcIntroduce from '../containers/Introduce/pc_introduce'
+
 import NotFound from '../containers/404'
 
 // 如果是大型项目，router部分就需要做更加复杂的配置
 // 参见 https://github.com/reactjs/react-router/tree/master/examples/huge-apps
 
-class RouterMap extends React.Component {
+class MbRouterMap extends React.Component {
     render() {
         return (
             <Router history={this.props.history}>
                 <Route path='/' component={App}>
-                    <IndexRoute component={PcHome}/>
-                    <Route path='introduce' component={PcIntroduce}>
-                    </Route>
+                    <IndexRoute component={MbHome}/>
+                    <Route path='*' component={NotFound}/>
                 </Route>
-                
             </Router>
         )
     }
 }
 
-export default RouterMap
+export default MbRouterMap

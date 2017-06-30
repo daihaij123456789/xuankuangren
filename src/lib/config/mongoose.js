@@ -6,9 +6,5 @@ module.exports = function() {
 	var dbname = config.mongodbConfig.database;
 	var connectUrl = 'mongodb://' + host + '/' + dbname;
 	var db = mongoose.connect(connectUrl);
-
-	require('../models/classify.js');
-	require('../models/news.js');
-
 	return db;
 }
