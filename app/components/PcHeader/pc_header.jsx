@@ -25,7 +25,7 @@ class PcHeader extends React.Component {
                     <Col xs={{ span: 24 }}  sm={{ span: 24 }} md={{ span: 5 }} lg={{ span: 4 }}>
                         <Link id="logo" to="/">
                         <img alt="logo" src="https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg" />
-                        <span>Ant Design</span>
+                        <span>华南选矿冶金技术网</span>
                         </Link>
                     </Col>
                     <Col xs={{ span: 0 }}  sm={{ span: 0 }} md={{ span: 19 }}  lg={{ span: 20 }}>
@@ -39,16 +39,16 @@ class PcHeader extends React.Component {
                             <Link to="/"><Icon type="bars" /><span>首页</span></Link>
                             </Menu.Item>
                             <Menu.Item key="introduce">
-                            <Link to="/introduce"><Icon type="solution" /><span>指导</span></Link>
+                            <Link to="/introduce"><Icon type="solution" /><span>选矿前沿</span></Link>
                             </Menu.Item>
                             <Menu.Item key="component">
-                            <Link to="/component"><Icon type="api" /><span>组件</span></Link>
+                            <Link to="/component"><Icon type="api" /><span>技术交流</span></Link>
                             </Menu.Item>
                             <Menu.Item key="pattern">
-                            <Link to="/pattern"><Icon type="fork" /><span>模式</span></Link>
+                            <Link to="/pattern"><Icon type="fork" /><span>项目案例</span></Link>
                             </Menu.Item>
                             <Menu.Item key="resourec">
-                            <Link to="/resourec"><Icon type="switcher" /><span>资源</span></Link>
+                            <Link to="/resourec"><Icon type="switcher" /><span>资源共享</span></Link>
                             </Menu.Item>
                         </Menu>
                     </Col>

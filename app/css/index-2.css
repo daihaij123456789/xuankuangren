@@ -5285,7 +5285,10 @@ a:focus {
     margin: 0 48px;
     border-radius: 4px;
     padding: 24px 0 0;
-    margin-bottom: 24px
+    margin-bottom: 24px;
+    background: #fff;
+    position: relative;
+
 }
 
 .main-container,.main-wrapper {
@@ -5366,15 +5369,7 @@ a:focus {
     background: #ececec
 }
 
-#header {
-    -webkit-transition: opacity .5s;
-    transition: opacity .5s;
-    background: #fff;
-    height: 80px;
-    margin-bottom: 24px;
-    padding: 0 48px;
-    width: 100%
-}
+
 
 #header.home-nav-bottom {
     background: hsla(0,0%,100%,.9);
@@ -7628,7 +7623,9 @@ ul.anticons-list li.copied:after {
     .main-wrapper {
         width: 100%;
         border-radius: 0;
-        margin: 0
+        margin: 0;
+         background: #fff;
+        position: relative
     }
 
     footer {
@@ -7643,4 +7640,8 @@ ul.anticons-list li.copied:after {
     footer ul li>h2 .anticon {
         display: none
     }
+}
+.main-warpper-row{
+    background: #fff;
+    margin:50px 20px;
 }

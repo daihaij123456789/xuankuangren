@@ -4,18 +4,19 @@ import { Provider } from 'react-redux'
 import { hashHistory } from 'react-router'
 import configureStore from './store/configureStore'
 
-import './static/css/common.less'
-import './static/css/font.css'
-import './css/index-1.css'
-import './css/index-2.css'
+
 
 // 创建 Redux 的 store 对象
 const store = configureStore();
 
 import MbRouteMap from './router/mb_routeMap'
 import PcRouterMap from './router/pc_routeMap'
-import 'antd/dist/antd.css';
+//import 'antd/dist/antd.css';
 import MediaQuery from 'react-responsive';
+import './static/css/common.less'
+import './static/css/font.css'
+import './css/index-1.css'
+import './css/index-2.css'
 render(
     <Provider store={store}>
     <div>

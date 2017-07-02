@@ -6,9 +6,8 @@ import {Row,Col, Menu, Icon} from 'antd'
 import {Router, Route, Link, browserHistory} from 'react-router'
 import PcHeader from '../../components/PcHeader/pc_header'
 import PcFooter from '../../components/PcFooter/pc_footer'
-import PcIntroduceMain from './subpage/pc_introduce_main'
 const SubMenu = Menu.SubMenu;
-class PcIntroduce extends React.Component {
+class pattern extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -16,9 +15,8 @@ class PcIntroduce extends React.Component {
     }
     render() {
         return (
-            <div className="page-wrapper">
-                <PcHeader type="introduce"/>
-                <PcIntroduceMain />
+            <div>
+                <PcHeader type="pattern"/>
                 <PcFooter />
             </div>
         )
@@ -40,4 +38,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PcIntroduce)
+)(pattern)
