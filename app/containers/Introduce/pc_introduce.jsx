@@ -17,10 +17,12 @@ class PcIntroduce extends React.Component {
     }
     render() {
         return (
-            <div className="page-wrapper">
-                <PcHeader type="introduce"/>
-                <PCNewsContainer />
-                <PcFooter />
+            <div id="react-content">
+                <div className="page-wrapper">
+                    <PcHeader type="introduce"/>
+                    <PCNewsContainer />
+                    <PcFooter />
+                </div>
             </div>
         )
     }

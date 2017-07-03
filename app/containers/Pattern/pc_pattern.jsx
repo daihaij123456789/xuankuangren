@@ -15,9 +15,11 @@ class pattern extends React.Component {
     }
     render() {
         return (
-            <div>
-                <PcHeader type="pattern"/>
-                <PcFooter />
+            <div id="react-content">
+                <div className="page-wrapper">
+                    <PcHeader type="pattern"/>
+                    <PcFooter />
+                </div>
             </div>
         )
     }
