@@ -1,6 +1,7 @@
 import { get } from '../get'
 
 export function getInfoData(id) {
+	console.log(id)
    const result = get('/api/detail/info/' + id)
    return result
 }
