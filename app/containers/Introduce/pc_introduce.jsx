@@ -7,6 +7,7 @@ import {Router, Route, Link, browserHistory} from 'react-router'
 import PcHeader from '../../components/PcHeader/pc_header'
 import PcFooter from '../../components/PcFooter/pc_footer'
 import PcIntroduceMain from './subpage/pc_introduce_main'
+import PCNewsContainer from './subpage/Pc_NewsContainer'
 const SubMenu = Menu.SubMenu;
 class PcIntroduce extends React.Component {
     constructor(props, context) {
@@ -18,7 +19,7 @@ class PcIntroduce extends React.Component {
         return (
             <div className="page-wrapper">
                 <PcHeader type="introduce"/>
-                <PcIntroduceMain />
+                <PCNewsContainer />
                 <PcFooter />
             </div>
         )

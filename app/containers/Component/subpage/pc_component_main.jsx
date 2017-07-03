@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {Router, Route, Link, browserHistory} from 'react-router'
 import {Row,Col, Menu, Icon} from 'antd'
+import { getInfoData } from '../../../fetch/detail/detai'
 import './pc_com_main.less'
 const SubMenu = Menu.SubMenu;
 class PcComponentMain extends React.Component {
@@ -13,17 +14,17 @@ class PcComponentMain extends React.Component {
         this.state= {
             current: '1',
             openKeys: [],
+            info:{}
           }
     }
     handleClick(e){
-        console.log('Clicked: ', e);
         this.setState({ current: e.key });
+        this.getInfo(e.key)
         }
     onOpenChange(openKeys){
         const state = this.state;
         const latestOpenKey = openKeys.find(key => !(state.openKeys.indexOf(key) > -1));
         const latestCloseKey = state.openKeys.find(key => !(openKeys.indexOf(key) > -1));
-
         let nextOpenKeys = [];
         if (latestOpenKey) {
           nextOpenKeys = this.getAncestorKeys(latestOpenKey).concat(latestOpenKey);
@@ -39,11 +40,28 @@ class PcComponentMain extends React.Component {
         };
         return map[key] || [];
       }
+  componentDidMount() {
+        // 获取商户信息
+        this.getInfo(this.state.current)
+    }
+    getInfo(id) {
+        const result = getInfoData(id)
+        result.then(res => {
+            return res.json()
+        }).then(json => {
+            console.log(json)
+            this.setState({
+                info: json
+            })
+        }).catch(ex => {
+            if (__DEV__) {
+                console.error('加载失败')
+            }
+        })
+    }
     render() {
-        console.log(111111111)
         return (
             <div className="main-warpper">
-            <div className="main-warpper-row">
                 <Row >
                     <Col xs={{ span: 24 }}  sm={{ span: 24 }} md={{ span: 5 }} lg={{ span: 4 }}>
                         <Menu
@@ -62,12 +80,11 @@ class PcComponentMain extends React.Component {
                             <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
                               <Menu.Item key="5">Option 5</Menu.Item>
                               <Menu.Item key="6">Option 6</Menu.Item>
-                              <SubMenu key="sub3" title="Submenu">
                                 <Menu.Item key="7">Option 7</Menu.Item>
                                 <Menu.Item key="8">Option 8</Menu.Item>
-                              </SubMenu>
+
                             </SubMenu>
-                            <SubMenu key="sub4" title={<span><Icon type="setting" /><span>Navigation Three</span></span>}>
+                            <SubMenu key="sub3" title={<span><Icon type="setting" /><span>Navigation Three</span></span>}>
                               <Menu.Item key="9">Option 9</Menu.Item>
                               <Menu.Item key="10">Option 10</Menu.Item>
                               <Menu.Item key="11">Option 11</Menu.Item>
@@ -78,7 +95,7 @@ class PcComponentMain extends React.Component {
                     <Col xs={{ span: 0 }}  sm={{ span: 0 }} md={{ span: 19 }}  lg={{ span: 20 }} className="main-container">
                         <article className="markdown">
                             <h1>
-                                快速上手
+                                {this.state.info.title}
                                 <a className="edit-button" href="https://github.com/ant-design/ant-design/edit/master/docs/react/getting-started.zh-CN.md">
                                     <i className="anticon anticon-edit">
                                     </i>
@@ -86,11 +103,7 @@ class PcComponentMain extends React.Component {
                             </h1>
                             <section className="markdown">
                                 <p>
-                                    Ant Design React 致力于提供给程序员
-                                    <strong>
-                                        愉悦
-                                    </strong>
-                                    的开发体验。
+                                    Ant Design React 致力于提供给程序员愉悦的开发体验。
                                 </p>
                             </section>
                             <section className="toc">
@@ -139,7 +152,6 @@ class PcComponentMain extends React.Component {
                         </article>
                     </Col>
                 </Row>
-                </div>
             </div>
         )
     }

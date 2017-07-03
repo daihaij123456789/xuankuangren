@@ -18,7 +18,6 @@ class PcIntroduceMain extends React.Component {
           }
     }
     handleClick(e){
-        console.log('Clicked: ', e.key);
         this.setState({ current: e.key });
         this.getInfo(e.key)
         }
