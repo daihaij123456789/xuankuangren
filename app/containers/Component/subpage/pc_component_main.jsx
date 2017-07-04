@@ -12,9 +12,12 @@ class PcComponentMain extends React.Component {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state= {
-            current: '1',
+            current: 'sub11',
             openKeys: [],
-            info:{}
+            info:{},
+            SubMenuArr:[{Subkey:'sub1', Subtitle:{type:'mail',subtitle:'有色金属'}, Menuitem:[{key:'sub11',title:'铅'},{key:'sub12',title:'锌'},{key:'sub13', title:'铜'}]},
+            {Subkey:'sub2',Subtitle:{type:'appstore',subtitle:'稀贵金属'},Menuitem:[{key:'sub21',title:'黄金'},{key:'sub22',title:'白银'},{key:'sub23',title:'铟'}]},
+            {Subkey:'sub3',Subtitle:{type:'mail',subtitle:'稀土'},Menuitem:[{key:'sub31',title:'轻稀土'},{key:'sub32',title:'重稀土'}]}]
           }
     }
     handleClick(e){
@@ -36,7 +39,7 @@ class PcComponentMain extends React.Component {
       }
   getAncestorKeys(key){
         const map = {
-          sub3: ['sub2'],
+          sub3: [],
         };
         return map[key] || [];
       }
@@ -59,11 +62,12 @@ class PcComponentMain extends React.Component {
             }
         })
     }
-    render() {
+    render() { 
         return (
             <div className="main-warpper">
+                <div style={{background:'#fff',marginLeft:'50px',marginRight:'50px'}}>
                 <Row >
-                    <Col xs={{ span: 24 }}  sm={{ span: 24 }} md={{ span: 5 }} lg={{ span: 4 }}>
+                    <Col xs={{ span: 24 }}  sm={{ span: 24 }} md={{ span: 5 }} lg={{ span: 3}}>
                         <Menu
                             mode="inline"
                             openKeys={this.state.openKeys}
@@ -71,28 +75,16 @@ class PcComponentMain extends React.Component {
                             onOpenChange={this.onOpenChange.bind(this)}
                             onClick={this.handleClick.bind(this)}
                         >
-                            <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-                              <Menu.Item key="1">Option 1</Menu.Item>
-                              <Menu.Item key="2">Option 2</Menu.Item>
-                              <Menu.Item key="3">Option 3</Menu.Item>
-                              <Menu.Item key="4">Option 4</Menu.Item>
+                        {this.state.SubMenuArr.map(function(elem) {
+                            return <SubMenu key={elem.Subkey} title={<span><Icon type={elem.Subtitle.type} /><span>{elem.Subtitle.subtitle}</span></span>}>
+                             {elem.Menuitem.map(function(subelem) {
+                                 return  <Menu.Item key={subelem.key}>{subelem.title}</Menu.Item>
+                             })}
                             </SubMenu>
-                            <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
-                              <Menu.Item key="5">Option 5</Menu.Item>
-                              <Menu.Item key="6">Option 6</Menu.Item>
-                                <Menu.Item key="7">Option 7</Menu.Item>
-                                <Menu.Item key="8">Option 8</Menu.Item>
-
-                            </SubMenu>
-                            <SubMenu key="sub3" title={<span><Icon type="setting" /><span>Navigation Three</span></span>}>
-                              <Menu.Item key="9">Option 9</Menu.Item>
-                              <Menu.Item key="10">Option 10</Menu.Item>
-                              <Menu.Item key="11">Option 11</Menu.Item>
-                              <Menu.Item key="12">Option 12</Menu.Item>
-                            </SubMenu>
-                          </Menu>
+                        })}
+                        </Menu>
                     </Col>
-                    <Col xs={{ span: 0 }}  sm={{ span: 0 }} md={{ span: 19 }}  lg={{ span: 20 }} className="main-container">
+                    <Col xs={{ span: 0 }}  sm={{ span: 0 }} md={{ span: 19 }}  lg={{ span: 21 }} className="main-container">
                         <article className="markdown">
                             <h1>
                                 {this.state.info.title}
@@ -152,6 +144,7 @@ class PcComponentMain extends React.Component {
                         </article>
                     </Col>
                 </Row>
+                </div>
             </div>
         )
     }
