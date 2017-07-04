@@ -48,7 +48,7 @@ import './pc_style.less'
 							</TabPane>
 						</Tabs>
 						<Tabs className="tabs_product">
-							<TabPane tab="ReactNews 产品" key="1">
+							<TabPane tab="选矿产品" key="1">
 								<PCProduct/>
 							</TabPane>
 						</Tabs>
