@@ -40,10 +40,16 @@ import './pc_style.less'
 							<PCNewsImageBlock count={6} type="guoji" width="400px" cartTitle="国际头条" imageWidth="112px"/>
 						</div>
 						<Tabs className="tabs_news">
-							<TabPane tab="头条新闻" key="1">
+							<TabPane tab="选矿头条" key="1">
 								<PCNewsBlock count={22} type="top" width="100%" bordered="false"/>
 							</TabPane>
-							<TabPane tab="国际" key="2">
+							<TabPane tab="国际矿业" key="2">
+								<PCNewsBlock count={22} type="guoji" width="100%" bordered="false"/>
+							</TabPane>
+							<TabPane tab="国内矿业" key="3">
+								<PCNewsBlock count={22} type="guoji" width="100%" bordered="false"/>
+							</TabPane>
+							<TabPane tab="矿业合作" key="4">
 								<PCNewsBlock count={22} type="guoji" width="100%" bordered="false"/>
 							</TabPane>
 						</Tabs>

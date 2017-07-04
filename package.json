@@ -6,7 +6,7 @@
   "scripts": {
     "start": "set NODE_ENV=dev && webpack-dev-server --progress --colors",
     "mock": "node --harmony ./mock/server.js",
-    "build": "rm -rf ./build && set NODE_ENV=production && webpack --config ./webpack.production.config.js --progress --colors",
+    "build": "rm -rf ./src/public/build && set NODE_ENV=production && webpack --config ./webpack.production.config.js --progress --colors",
     "app": "./node_modules/.bin/nodemon src/bin/run",
     "koa": "./node_modules/.bin/runkoa src/bin/www",
     "pm2": "pm2 start bin/run "

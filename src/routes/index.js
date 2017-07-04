@@ -35,7 +35,7 @@ router.post('api/submitComment', async function(ctx,next) {
         msg: 'ok'
     }
 })
-router.get('api', async function(ctx,next) {
+router.get('/', async function(ctx,next) {
    await ctx.render('index',{title:'Koa'})
 });
 module.exports = router;
