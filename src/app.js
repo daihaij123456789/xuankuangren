@@ -9,8 +9,8 @@ const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser')();
 const logger = require('koa-logger');
 
-var mongoose = require('./lib/config/mongoose.js');
-var db = mongoose()
+//var mongoose = require('./lib/config/mongoose.js');
+//var db = mongoose()
 const index = require('./routes/index');
 const users = require('./routes/users');
 
@@ -19,10 +19,10 @@ const users = require('./routes/users');
 app.use(convert(bodyparser));
 app.use(convert(json()));
 app.use(convert(logger()));
-app.use(require('koa-static')(__dirname + '/src/public'));
+app.use(require('koa-static')(__dirname + '/public/build'));
 
-app.use(views(__dirname + '/src/views', {
-	extension: 'jade'
+app.use(views(__dirname + '/views', {
+	extension: 'ejs'
 }));
 
 // logger

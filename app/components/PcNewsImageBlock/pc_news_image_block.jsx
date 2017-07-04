@@ -1,13 +1,17 @@
 import React from 'react';
 import {Card} from 'antd';
+import PureRenderMixin from 'react-addons-pure-render-mixin'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import {Router, Route, Link, browserHistory} from 'react-router'
 class PCNewsImageBlock extends React.Component {
-	constructor() {
-		super();
-		this.state = {
+	constructor(props, context) {
+        super(props, context);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+        this.state = {
 			news: ''
 		};
-	}
+    }
 	componentWillMount() {
 		var myFetchOptions = {
 			method: 'GET'
@@ -53,4 +57,18 @@ class PCNewsImageBlock extends React.Component {
 		);
 	};
 }
-export default PCNewsImageBlock
+
+function mapStateToProps(state) {
+    return {
+        userinfo: state.userinfo
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+    }
+}
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PCNewsImageBlock)
