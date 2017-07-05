@@ -6,7 +6,7 @@ export default class PCProduct extends React.Component{
       <div className="area-sub" style={{overflow: 'visible'}}>
           {/* product.html start */}
           <div id="layout-product" className="m-box ui-style-gradient mb12">
-            <div id="js_changeView" className="box-bd clearfix" data-module-name="n_product">
+            <div id="js_changeView" className="box-bd" data-module-name="n_product">
               <div className="productlinks clearfix" style={{overflow: 'visible'}}>
                 <div className="productlinks-item item-mail">
                   <strong className><a className="productlinks-i-mail" href="http://email.163.com/">邮箱</a></strong>

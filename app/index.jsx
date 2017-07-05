@@ -11,12 +11,12 @@ const store = configureStore();
 
 import MbRouteMap from './router/mb_routeMap'
 import PcRouterMap from './router/pc_routeMap'
-//import 'antd/dist/antd.css';
 import MediaQuery from 'react-responsive';
 import './static/css/common.less'
 import './static/css/font.css'
 import './css/index-1.css'
 import './css/index-2.css'
+//import './css/pc.css'
 render(
     <Provider store={store}>
     <div>

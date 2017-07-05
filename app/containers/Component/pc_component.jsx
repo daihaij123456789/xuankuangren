@@ -7,7 +7,7 @@ import {Router, Route, Link, browserHistory} from 'react-router'
 import PcHeader from '../../components/PcHeader/pc_header'
 import PcFooter from '../../components/PcFooter/pc_footer'
 import PcComponentMain from './subpage/pc_component_main'
-const SubMenu = Menu.SubMenu;
+
 class PcComponent extends React.Component {
     constructor(props, context) {
         super(props, context);

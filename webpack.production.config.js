@@ -8,21 +8,36 @@ module.exports = {
     app: path.resolve(__dirname, 'app/index.jsx'),
     // 将 第三方依赖 单独打包
     vendor: [
-      'react',
-      'react-dom',
-      'react-redux',
-      'react-router',
-      'redux',
+      // 'react',
+      // 'react-dom',
+      // 'react-redux',
+      // 'react-router',
+      // 'redux',
       'es6-promise',
-      'whatwg-fetch',
-      'immutable'
+      //'whatwg-fetch',
+      'immutable',
+
     ]
   },
   output: {
     path: path.resolve(__dirname, 'src/public/build'),//__dirname + "./src/public/build",
     filename: "[name].[chunkhash:8].js",
+    //filename: "[name].js",
     publicPath: '/',
     //chunkFilename: '[name].js'
+  },
+  externals : {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'redux': 'Redux',
+    'redux-thunk': 'ReduxThunk',
+    'react-redux': 'ReactRedux',
+    'react-router': 'ReactRouter',
+    'react-router-redux': 'ReactRouterRedux',
+    'es5-shim': 'window',
+    'whatwg-fetch': 'fetch',
+    'node-uuid': 'uuid',
+    'antd':'antd'
   },
 
   resolve: {

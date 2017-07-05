@@ -26,8 +26,8 @@ import './pc_style.less'
 		return (
 			<div>
 				<Row>
-					<Col span={2}></Col>
-					<Col span={20} className="container">
+					<Col xs={{ span: 0 }}  sm={{ span: 0 }} md={{ span: 0 }} lg={{ span: 1 }}></Col>
+					<Col xs={{ span: 24 }}  sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 22 }} className="container">
 						<div className="leftContainer">
 							<div className="carousel">
 								<Carousel {...settings}>
@@ -63,7 +63,7 @@ import './pc_style.less'
 							<PCNewsImageBlock count={16} type="yule" width="100%" cartTitle="娱乐新闻" imageWidth="132px"/>
 						</div>
 					</Col>
-					<Col span={2}></Col>
+					<Col xs={{ span: 0 }}  sm={{ span: 0 }} md={{ span: 0 }} lg={{ span: 1 }}></Col>
 				</Row>
 			</div>
 		);
