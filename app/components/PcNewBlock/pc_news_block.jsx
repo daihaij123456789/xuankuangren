@@ -19,8 +19,18 @@ class PCNewsBlock extends React.Component {
 		fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + this.props.type + "&count=" + this.props.count, myFetchOptions)
 		.then(response => response.json())
 		.then(json => {
-			console.log(json);
 			this.setState({news: json})
+		});
+		fetch('api/introduce?&type=' + 'top' , myFetchOptions)
+		.then(response => response.json())
+		.then(json => {
+			var newsArr = json.categories.news.map((elem,index)=> {
+				if(index < Number(this.props.count)){
+					return elem;
+				}
+				
+			})
+			console.log(newsArr);
 		});
 	};
 	render() {

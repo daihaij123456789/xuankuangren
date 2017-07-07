@@ -16,8 +16,8 @@ import MediaQuery from 'react-responsive';
 import './static/css/common.less'
 import './static/css/font.css'
 //import './css/index-1.css'
-//import './css/index-2.css'
-//import './css/pc.css'
+import './css/index-2.css'
+import './css/pc_style.css'
 render(
     <Provider store={store}>
     <div>

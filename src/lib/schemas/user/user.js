@@ -60,13 +60,18 @@ UserSchema.pre('save', function(next) {
 UserSchema.methods = {
   comparePassword: function(_password) {
     var password = this.password;
-
-    return function(cb){
+    return bcrypt.compare(_password, password).then(function(isMatch) {
+      return isMatch
+});
+    //return function(cb){
       // 使用bcrypt的compare方法对用户输入的密码和数据库中保存的密码进行比对
-    bcrypt.compare(_password, password, function(err, isMatch) {
-      cb(err, isMatch)
-    })
-    }
+    // bcrypt.compare(_password, password, function(err, isMatch) {
+    //   if(err){console.log(err)};
+    //   console.log(isMatch)
+    //   return isMatch
+    //   //cb(err, isMatch)
+    // })
+    //}
   }
 }
 // 给模型添加静态方法

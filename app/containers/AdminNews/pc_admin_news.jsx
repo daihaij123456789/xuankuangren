@@ -6,23 +6,20 @@ import {Row,Col, Menu, Icon} from 'antd'
 import {Router, Route, Link, browserHistory} from 'react-router'
 import PcHeader from '../../components/PcHeader/pc_header'
 import PcFooter from '../../components/PcFooter/pc_footer'
-import PcSection from './subpage/pc_section'
-import PcHomePages from './subpage/pc_home_page'
-const SubMenu = Menu.SubMenu;
-class PcHemo extends React.Component {
+import PcAdminNewsMain from './subpage/pc_admin_news_main'
+
+class PcAdminNews extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         
     }
-    
     render() {
         return (
             <div id="react-content">
                 <div className="page-wrapper">
-                    <PcHeader type="home"/>
-                    <PcSection />
-                    <PcHomePages />
+                    <PcHeader/>
+                    <PcAdminNewsMain />
                     <PcFooter/>
                 </div>
             </div>
@@ -45,4 +42,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PcHemo)
+)(PcAdminNews)

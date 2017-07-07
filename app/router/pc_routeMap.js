@@ -44,6 +44,11 @@ const PcNewsDetails = (location, cb) => {
     cb(null, require('../containers/NewDetails/pc_news_details').default)
     },'PcNewsDetails')
 }
+const PcAdminNews = (location, cb) => {
+    require.ensure([], require => {
+    cb(null, require('../containers/AdminNews/pc_admin_news').default)
+    },'PcAdminNews')
+}
 // 如果是大型项目，router部分就需要做更加复杂的配置
 // 参见 https://github.com/reactjs/react-router/tree/master/examples/huge-apps
 
@@ -58,6 +63,7 @@ class RouterMap extends React.Component {
                     <Route path='pattern' getComponent={PcPattern}></Route>
                     <Route path='resourec' getComponent={PcResourec}></Route>
                     <Route path="/details/:uniquekey" getComponent={PcNewsDetails}></Route>
+                    <Route path="adminNews" getComponent={PcAdminNews}></Route>
                 </Route>
             </Router>
         )
