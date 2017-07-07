@@ -24,7 +24,7 @@ module.exports = {
     filename: "[name].[chunkhash:8].js",
     //filename: "[name].js",
     publicPath: '/',
-    //chunkFilename: '[name].js'
+    chunkFilename: '[name].[chunkhash:8].js'
   },
   externals : {
     'react': 'React',

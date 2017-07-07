@@ -17,7 +17,7 @@ module.exports = {
 		port: 27017,
 		username: '',
 		password: '',
-		database: 'crawler'
+		database: 'movie'
 	},
 
 	redisConfig: {

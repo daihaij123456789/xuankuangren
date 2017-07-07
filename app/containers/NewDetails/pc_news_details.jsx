@@ -35,7 +35,7 @@ class PcNewsDetails extends React.Component {
                     <Row>
                         <Col span={2}></Col>
                         <Col span={14} className="container">
-                            <div class="articleContainer" dangerouslySetInnerHTML={this.createMarkup()}></div>
+                            <div className="articleContainer" dangerouslySetInnerHTML={this.createMarkup()}></div>
                             <hr/>
                             <PcCommonComments uniquekey={this.props.params.uniquekey}/>
                         </Col>

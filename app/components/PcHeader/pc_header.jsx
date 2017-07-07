@@ -39,7 +39,6 @@ class PcHeader extends React.Component {
         }
     }
     componentWillMount(){
-        this.props.form.validateFields();
         if (localStorage.userid!='') {
             this.setState({hasLogined:true});
             this.setState({userNickName:localStorage.userNickName,userid:localStorage.userid});
@@ -60,33 +59,52 @@ class PcHeader extends React.Component {
             }
         }
     };
-    handleSubmit(e)
+    handleSubmitSignIn(e){
+        e.preventDefault();
+        var formData = this.props.form.getFieldsValue();
+        var data = new FormData();
+        data.append( "json", JSON.stringify(formData));
+        var myFetchOptions = {
+            method: 'POST',
+            body:data
+            };
+            
+            fetch("api/user/signin" , myFetchOptions)
+            .then(response => response.json())
+            .then(json => {
+                this.setState({hasLogined:true});
+                this.setState({userNickName: json.data.name || '', userid: json.data._id || ''});
+                localStorage.userid= json.data._id;
+                localStorage.userNickName = json.data.name;
+                
+                message.success("登陆成功!!!");
+            });
+            this.setModalVisible(false);
+    }
+    handleSubmitSignUp(e)
     {
         //页面开始向 API 进行提交数据
         e.preventDefault();
         /*this.props.form.validateFields((err, values) => {
           if (!err) {*/
-            var myFetchOptions = {
-            method: 'GET'
-            };
             var formData = this.props.form.getFieldsValue();
-            console.log(formData);
-            fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action
-            + "&username="+formData.userName+"&password="+formData.password
-            +"&r_userName=" + formData.r_userName + "&r_password="
-            + formData.r_password + "&r_confirmPassword="
-            + formData.r_confirmPassword, myFetchOptions)
+            var data = new FormData();
+            data.append( "json", JSON.stringify(formData));
+            var myFetchOptions = {
+            method: 'POST',
+            body:data
+            };
+            
+            fetch("api/user/signup" , myFetchOptions)
             .then(response => response.json())
             .then(json => {
-                console.log(json)
-                this.setState({userNickName: json.NickUserName || '', userid: json.UserId || ''});
-                localStorage.userid= json.UserId;
-                localStorage.userNickName = json.NickUserName;
-            });
-            if (this.state.action=="login") {
                 this.setState({hasLogined:true});
-            }
-            message.success("请求成功！");
+                this.setState({userNickName: json.data.name || '', userid: json.data._id || ''});
+                localStorage.userid= json.data._id;
+                localStorage.userNickName = json.data.name;
+                
+                message.success("注册成功!!!");
+            });
             this.setModalVisible(false);
           /*}
         });*/
@@ -155,7 +173,7 @@ class PcHeader extends React.Component {
                         <Modal title="用户中心" wrapClassName="vertical-center-modal" visible={this.state.modalVisible} onCancel= {()=>this.setModalVisible(false)} onOk={() => this.setModalVisible(false)} okText="关闭">
                             <Tabs type="card" onChange={this.callback.bind(this)}>
                                 <TabPane tab="登录" key="1">
-                                    <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
+                                    <Form layout="horizontal" onSubmit={this.handleSubmitSignIn.bind(this)}>
 
                                         <FormItem label="账户"
                                             validateStatus={userNameError ? 'error' : ''}
@@ -181,7 +199,7 @@ class PcHeader extends React.Component {
                                     </Form>
                                 </TabPane>
                                 <TabPane tab="注册" key="2">
-                                    <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
+                                    <Form layout="horizontal" onSubmit={this.handleSubmitSignUp.bind(this)}>
                                         <FormItem label="账户">
                                         {getFieldDecorator('r_userName', {
                                             rules: [{ required: true, message: 'Please input your username!' }],

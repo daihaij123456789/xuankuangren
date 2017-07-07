@@ -8,9 +8,10 @@ const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser')();
 const logger = require('koa-logger');
-
-//var mongoose = require('./lib/config/mongoose.js');
-//var db = mongoose()
+const session = require('koa-session');
+var koaBody = require('koa-body');
+var mongoose = require('./lib/config/mongoose.js');
+var db = mongoose()
 const index = require('./routes/index');
 const users = require('./routes/users');
 
@@ -20,7 +21,9 @@ app.use(convert(bodyparser));
 app.use(convert(json()));
 app.use(convert(logger()));
 app.use(require('koa-static')(__dirname + '/public/build'));
-
+app.keys = ['xuankuangren'];
+app.use(convert(session(app)));
+app.use(co.wrap(koaBody({ multipart: true,formidable:{uploadDir: __dirname}})));
 app.use(views(__dirname + '/views', {
 	extension: 'ejs'
 }));
