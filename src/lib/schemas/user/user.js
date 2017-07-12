@@ -43,8 +43,10 @@ UserSchema.pre('save', function(next) {
     this.meta.updateAt = Date.now()
   }
 
-
 // 生成随机的盐，和密码混合后再进行加密
+  if(user.role>0&&user.role<100){
+    next()
+  }
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
     if (err) return next(err)
 
@@ -56,13 +58,19 @@ UserSchema.pre('save', function(next) {
     })
   })
 })
+/*UserSchema.pre('update', function(next) {
+  var user = this;
+  console.log(user)
+  user.role = 50;
+  next()
+})*/
 // 实例方法，通过实例可以调用
 UserSchema.methods = {
   comparePassword: function(_password) {
     var password = this.password;
     return bcrypt.compare(_password, password).then(function(isMatch) {
       return isMatch
-});
+    });
     //return function(cb){
       // 使用bcrypt的compare方法对用户输入的密码和数据库中保存的密码进行比对
     // bcrypt.compare(_password, password, function(err, isMatch) {

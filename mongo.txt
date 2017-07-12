@@ -1,2 +1,3 @@
 mongod.exe -dbpath D:\database\mongodb\data\movie
 redis-server.exe redis.conf
+supervisor bin/www

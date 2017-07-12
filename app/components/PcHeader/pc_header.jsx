@@ -16,7 +16,6 @@ import {
     Col
 } from 'antd';
 const FormItem = Form.Item;
-const SubMenu = Menu.SubMenu;
 const TabPane = Tabs.TabPane;
 import {Router, Route, Link, browserHistory} from 'react-router'
 import './pc_header.less'
@@ -46,6 +45,7 @@ class PcHeader extends React.Component {
             this.setState({hasLogined:true});
             
             this.setState({userNickName:localStorage.userNickName,userid:localStorage.userid,rote:localStorage.rote});
+            console.log(localStorage.role)
             if(localStorage.rote>10){
                 this.setState({adminShow:true});
                 this.setState({setAdminStyle:50})
@@ -95,6 +95,7 @@ class PcHeader extends React.Component {
                 localStorage.userid = json.data._id;
                 localStorage.userNickName = json.data.name;
                 localStorage.rote = String(json.data.role);
+
                 if(json.data.role>10){
                     this.setState({adminShow:true});
                     this.setState({setAdminStyle:50})
@@ -166,7 +167,10 @@ class PcHeader extends React.Component {
         const passwordError = isFieldTouched('password') && getFieldError('password');
         const adminPaineShow = this.state.adminShow
             ?<div style={{height:50}}>
-                <Link to="/adminNews"><span>新闻后台录入页面</span></Link>
+                <Link to="/adminNews"><span style={{marginRight:50}}>新闻管理页面</span></Link>
+                <Link to="/adminUsers"><span style={{marginRight:50}}>用户管理页面</span></Link>
+                <Link to="/adminMetals"><span style={{marginRight:50}}>金属管理页面</span></Link>
+                <Link to="/adminCases"><span style={{marginRight:50}}>案例管理页面</span></Link>
             </div>
             :<div></div>
         const userShow = this.state.hasLogined

@@ -49,6 +49,21 @@ const PcAdminNews = (location, cb) => {
     cb(null, require('../containers/AdminNews/pc_admin_news').default)
     },'PcAdminNews')
 }
+const PcAdminUsers = (location, cb) => {
+    require.ensure([], require => {
+    cb(null, require('../containers/AdminUsers/pc_admin_users').default)
+    },'PcAdminUsers')
+}
+const PcAdminCases = (location, cb) => {
+    require.ensure([], require => {
+    cb(null, require('../containers/AdminCases/pc_admin_cases').default)
+    },'PcAdminCases')
+}
+const PcAdminMetal = (location, cb) => {
+    require.ensure([], require => {
+    cb(null, require('../containers/AdminMetal/pc_admin_metal').default)
+    },'PcAdminMetal')
+}
 // 如果是大型项目，router部分就需要做更加复杂的配置
 // 参见 https://github.com/reactjs/react-router/tree/master/examples/huge-apps
 
@@ -64,6 +79,9 @@ class RouterMap extends React.Component {
                     <Route path='resourec' getComponent={PcResourec}></Route>
                     <Route path="/details/:uniquekey" getComponent={PcNewsDetails}></Route>
                     <Route path="adminNews" getComponent={PcAdminNews}></Route>
+                    <Route path="adminUsers" getComponent={PcAdminUsers}></Route>
+                    <Route path="adminCases" getComponent={PcAdminCases}></Route>
+                    <Route path="/adminMetals" getComponent={PcAdminMetal}></Route>
                 </Route>
             </Router>
         )

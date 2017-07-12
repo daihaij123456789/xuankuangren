@@ -4,14 +4,14 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {Router, Route, Link, browserHistory} from 'react-router'
 import {Row,Col, Menu, Icon,message,Form,Input,Button} from 'antd'
-import PcNewsInput from './NewsInput/pc_news_input'
-import PcNewsList from './NewsList/pc_news_list'
+import PcMetalInput from './metalInput/pc_metal_input'
+import PcMetalList from './metalList/pc_metal_list'
 const FormItem = Form.Item;
 const SubMenu = Menu.SubMenu;
 
-import './pc_admin_news_main.less'
+import './pc_admin_metal_main.less'
 //const SubMenu = Menu.SubMenu;
-class PcAdminNewsMain extends React.Component {
+class PcAdminMetalMain extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -53,10 +53,10 @@ class PcAdminNewsMain extends React.Component {
         let {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
         switch(this.state.current){
             case'userList':
-                var List = <PcNewsInput />
+                var List = <PcMetalInput />;
             break;
             case 'newsList' :
-                var List = <PcNewsList />;
+                var List = <PcMetalList />;
             break;
         }
         return (
@@ -70,10 +70,10 @@ class PcAdminNewsMain extends React.Component {
                             mode="inline"
                           >
                             <Menu.Item key="userList">
-                              <Icon type="appstore" />新闻录入页面
+                              <Icon type="appstore" />金属录入页面
                             </Menu.Item>
                             <Menu.Item key="newsList">
-                              <Icon type="appstore" />新闻列表页面
+                              <Icon type="appstore" />金属列表页面
                             </Menu.Item>
                           </Menu>
                     </Col>
@@ -102,4 +102,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Form.create({})(PcAdminNewsMain))
+)(Form.create({})(PcAdminMetalMain))

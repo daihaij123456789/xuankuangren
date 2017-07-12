@@ -2,9 +2,9 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId;
 
-var NewsCategorySchema = new Schema({
+var MetalCategorySchema = new Schema({
   name: String,
-  news: [{type: ObjectId, ref: 'NewsXK'}],
+  metals: [{type: ObjectId, ref: 'Metal'}],
   meta: {
     createAt: {
       type: Date,
@@ -18,7 +18,7 @@ var NewsCategorySchema = new Schema({
 })
 
 // var ObjectId = mongoose.Schema.Types.ObjectId
-NewsCategorySchema.pre('save', function(next) {
+MetalCategorySchema.pre('save', function(next) {
   if (this.isNew) {
     this.meta.createAt = this.meta.updateAt = Date.now()
   }
@@ -29,7 +29,7 @@ NewsCategorySchema.pre('save', function(next) {
   next()
 })
 
-NewsCategorySchema.statics = {
+MetalCategorySchema.statics = {
   fetch: function(cb) {
     return this
       .find({})
@@ -43,4 +43,4 @@ NewsCategorySchema.statics = {
   }
 }
 
-module.exports = NewsCategorySchema
+module.exports = MetalCategorySchema
