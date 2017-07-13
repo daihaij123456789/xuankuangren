@@ -8,7 +8,7 @@ import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card,Input
 const FormItem = Form.Item;
 const MenuItem = Menu.Item;
 const RadioGroup = Radio.Group;
-class PcMetalInput extends React.Component {
+class PcCaseInput extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -34,7 +34,7 @@ class PcMetalInput extends React.Component {
                 body:data
             };
             
-            fetch("api/admin/metal" , myFetchOptions)
+            fetch("api/admin/case" , myFetchOptions)
             .then(response => response.json())
             .then(json => {
                 if(String(json.data) == '1'){
@@ -48,22 +48,22 @@ class PcMetalInput extends React.Component {
         let {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
         return(
             <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)} className="form-center">
-                <FormItem label="矿石名称"
+                <FormItem label="案例名称"
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 14 }}>
                 {getFieldDecorator('name', {
                     rules: [{ required: true, message: 'Please input your username!' }],
                   })(
-                  <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入金属名称" />
+                  <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入案例名称" />
                 )}
                 </FormItem>
-                <FormItem label="元素名"
+                <FormItem label="矿石名称"
                     labelCol={{ span: 6 }}
                 wrapperCol={{ span: 14 }}>
-                {getFieldDecorator('metalname', {
+                {getFieldDecorator('casename', {
                     rules: [{ required: true, message: 'Please input your username!' }],
                   })(
-                  <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入元素名" />
+                  <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入矿石名称" />
                 )}
                 </FormItem>
                 <FormItem label="标题"
@@ -116,7 +116,7 @@ class PcMetalInput extends React.Component {
                     <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="创建作者" />
                 )}
                 </FormItem>
-                <FormItem label="矿石类型"
+                <FormItem label="案例类型"
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 14 }}
                 >
@@ -162,4 +162,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Form.create({})(PcMetalInput))
+)(Form.create({})(PcCaseInput))

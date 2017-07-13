@@ -3,10 +3,11 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {Router, Route, Link, browserHistory} from 'react-router'
-import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card,InputNumber,Row,Col,Menu} from 'antd'
+import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card,InputNumber,Row,Col,Menu,Radio} from 'antd'
 
 const FormItem = Form.Item;
 const MenuItem = Menu.Item;
+const RadioGroup = Radio.Group;
 class PcNewsList extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -27,7 +28,7 @@ class PcNewsList extends React.Component {
               title: '操作', dataIndex: 'action', 
               render: (text, record, index) => {
                     return (
-                      this.state.data.length > 1 ?
+                      this.state.data.length > 0 ?
                       (
                        <div>
                           <span style={{marginRight:10}}>
@@ -48,7 +49,8 @@ class PcNewsList extends React.Component {
             selectedRowKeys: [],
             data:[],
             modalVisible: false,
-            idAction:''
+            idAction:'',
+            newsObj:''
           }
     }
     componentDidMount() {
@@ -81,14 +83,30 @@ class PcNewsList extends React.Component {
 
     onModify(record){
         this.setState({idAction:record.key});
-        this.setModalVisible(true);
+        var myFetchOptions = {
+            method: 'GET'
+            };
+            fetch(`api/admin/news/${record.key}`, myFetchOptions)
+            .then(response => response.json())
+            .then(json => {
+                console.log(json.news);
+                this.setState({newsObj:json.news});
+                this.setModalVisible(true);        
+            });
     }
      handleSubmit(e)
     {
         //页面开始向 API 进行提交数据
         e.preventDefault();
             var formData = this.props.form.getFieldsValue();
-            
+            if(!formData.title){
+                message.success("请输入新闻标题");
+                return 
+            }
+            if(!formData.type){
+                message.success("请选择新闻类型");
+                return 
+            }
             var data = new FormData();
             data.append( "json", JSON.stringify(formData));
             var myFetchOptions = {
@@ -126,51 +144,77 @@ class PcNewsList extends React.Component {
     
     }
     render() {
-        let {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
+        let {getFieldDecorator} = this.props.form;
         return (
             <div>
                 <Table columns={this.columns} dataSource={this.state.data}/>
                 <Modal title="修改用户" wrapClassName="vertical-center-modal" visible={this.state.modalVisible} onCancel= {()=>this.setModalVisible(false)} onOk={() => this.setModalVisible(false)} okText="关闭">
-                            <Card type="card">
-                                    <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
-                                    <FormItem label="标题">
-                                    {getFieldDecorator('title', {
-                                        rules: [{ required: true, message: 'Please input your username!' }],
-                                      })(
-                                      <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入标题" />
-                                    )}
-                                    </FormItem>
-                                    <FormItem label="创建日期">
-                                    {getFieldDecorator('date', {
-                                        rules: [{ required: true, message: 'Please input your Password!' }],
-                                      })(
-                                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="请输入创建日期" />
-                                    )}
-                                    </FormItem>
-                                    <FormItem label="小图">
-                                    {getFieldDecorator('thumbnail_pic_s', {
-                                        rules: [{ required: true, message: 'Please input your Password agein!' }],
-                                      })(
-                                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="小图" />
-                                    )}
-                                    </FormItem>
-                                    <FormItem label="url">
-                                    {getFieldDecorator('url', {
-                                        rules: [{ required: true, message: 'Please input your Password agein!' }],
-                                      })(
-                                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="url" />
-                                    )}
-                                    </FormItem>
-                                    <FormItem label="类型">
-                                    {getFieldDecorator('type', {
-                                        rules: [{ required: true, message: 'Please input your Password agein!' }],
-                                      })(
-                                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="类型" />
-                                    )}
-                                    </FormItem>
-                                    <Button type="primary" htmlType="submit">确定修改</Button>
-                                </Form>
-                            </Card>
+                    <Card type="card">
+                        <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
+                            <FormItem label="名称">
+                            {getFieldDecorator('title', {
+                                initialValue: this.state.newsObj.title || '',
+                                rules: [{ required: true, message: 'Please input your username!' }],
+                              })(
+                              <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入金属名称"/>
+                            )}
+                            </FormItem>
+                            <FormItem label="标题">
+                            {getFieldDecorator('title', {
+                                initialValue: this.state.newsObj.title || '',
+                                rules: [{ required: true, message: 'Please input your username!' }],
+                              })(
+                              <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入标题" />
+                            )}
+                            </FormItem>
+                            <FormItem label="摘要">
+                            {getFieldDecorator('abstract', {
+                                initialValue: this.state.newsObj.abstract || '',
+                                rules: [{ required: true, message: 'Please input your Password!' }],
+                              })(
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="请输入摘要" type="textarea"/>
+                            )}
+                            </FormItem>
+                            <FormItem label="小图">
+                            {getFieldDecorator('thumbnail_pic_s', {
+                                initialValue: this.state.newsObj.thumbnail_pic_s || '',
+                                rules: [{ required: true, message: 'Please input your Password agein!' }],
+                              })(
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="小图" />
+                            )}
+                            </FormItem>
+                            <FormItem label="author_name">
+                            {getFieldDecorator('author_name', {
+                                initialValue: this.state.newsObj.author_name || '',
+                                rules: [{ required: true, message: 'Please input your Password agein!' }],
+                              })(
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="文章来源" />
+                            )}
+                            </FormItem>
+                            <FormItem label="类型">
+                            {getFieldDecorator('type', {
+                                initialValue: this.state.newsObj.type || '',
+                                rules: [{ required: true, message: 'Please input your Password agein!' }],
+                              })(
+                               <RadioGroup >
+                                  <Radio value="top">头条</Radio>
+                                  <Radio value="guolei">国内矿业</Radio>
+                                  <Radio value="guoji">国际矿业</Radio>
+                                  <Radio value="kyhz">矿业合作</Radio>
+                              </RadioGroup>
+                            )}
+                            </FormItem>
+                            <FormItem label="内容">
+                            {getFieldDecorator('content', {
+                                initialValue: this.state.newsObj.content || '',
+                                rules: [{ required: true, message: 'Please input your Password!' }],
+                              })(
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="请输入内容" type="textarea"/>
+                            )}
+                            </FormItem>
+                            <Button type="primary" htmlType="submit">保存</Button>
+                        </Form>
+                    </Card>
                 </Modal>
             </div>
         )

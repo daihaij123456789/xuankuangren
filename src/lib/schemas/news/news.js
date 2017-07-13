@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId;
-// 电影数据类型
+// 新闻数据类型
 var NewsXKSchema = new Schema({
   //director: String,                     // 导演
   title: String,                      // 标题
@@ -11,7 +11,7 @@ var NewsXKSchema = new Schema({
   // country: String,                    // 上映城市
   // summary: String,                    // 简介
   // flash: String,                      // 片源地址
-  // poster: String,                     // 电影海报
+  // poster: String,                     // 新闻海报
   // year: Number,                       // 上映时间
   // aka: String,                        // 又名
   // casts: String,                      // 主演
@@ -20,14 +20,16 @@ var NewsXKSchema = new Schema({
   date:String,                        //创建日期
   author_name: String,                //来源
   thumbnail_pic_s: String,
-  url: String,
-  type: String,
+  url: String,                        //链接
+  type: String,                       //类型
+  abstract:String,                    //摘要
+  content:String,                     //内容
   realtype: String,
   pv:{                                // 访问量
     type:Number,
     default:0
   },
-  category: {                         // 电影分类
+  category: {                         // 新闻分类
     type: ObjectId,
     ref: 'Category'
   },

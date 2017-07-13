@@ -6,7 +6,7 @@ import {Row,Col, Menu, Icon} from 'antd'
 import {Router, Route, Link, browserHistory} from 'react-router'
 import PcHeader from '../../components/PcHeader/pc_header'
 import PcFooter from '../../components/PcFooter/pc_footer'
-import PcAdminCasesMain from './subpage/pc_admin_cases_main'
+import PcAdminCaseMain from './subpage/pc_admin_case_main'
 
 class PcAdminCases extends React.Component {
     constructor(props, context) {
@@ -19,7 +19,7 @@ class PcAdminCases extends React.Component {
             <div id="react-content">
                 <div className="page-wrapper">
                     <PcHeader/>
-                    <PcAdminCasesMain />
+                    <PcAdminCaseMain />
                     <PcFooter/>
                 </div>
             </div>

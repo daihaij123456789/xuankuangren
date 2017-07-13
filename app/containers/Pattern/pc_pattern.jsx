@@ -6,6 +6,7 @@ import {Row,Col, Menu, Icon} from 'antd'
 import {Router, Route, Link, browserHistory} from 'react-router'
 import PcHeader from '../../components/PcHeader/pc_header'
 import PcFooter from '../../components/PcFooter/pc_footer'
+import PcPatternMain from './subpage/pc_pattern_main'
 const SubMenu = Menu.SubMenu;
 class pattern extends React.Component {
     constructor(props, context) {
@@ -18,6 +19,7 @@ class pattern extends React.Component {
             <div id="react-content">
                 <div className="page-wrapper">
                     <PcHeader type="pattern"/>
+                    <PcPatternMain />
                     <PcFooter />
                 </div>
             </div>

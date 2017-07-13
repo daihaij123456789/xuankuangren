@@ -27,7 +27,7 @@ class PcUserList extends React.Component {
               title: '操作', dataIndex: 'action', 
               render: (text, record, index) => {
                     return (
-                      this.state.data.length > 1 ?
+                      this.state.data.length > 0 ?
                       (
                        <div>
                           <span style={{marginRight:10}}>

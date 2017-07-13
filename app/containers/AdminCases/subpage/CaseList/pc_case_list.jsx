@@ -3,11 +3,12 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {Router, Route, Link, browserHistory} from 'react-router'
-import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card,InputNumber,Row,Col,Menu} from 'antd'
+import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card, InputNumber, Row, Col, Menu, Radio} from 'antd'
 
 const FormItem = Form.Item;
 const MenuItem = Menu.Item;
-class PcNewsList extends React.Component {
+const RadioGroup = Radio.Group;
+class PcCaseList extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -15,7 +16,7 @@ class PcNewsList extends React.Component {
               title: 'ID',
               dataIndex: 'key',
             },{
-              title: '标题',
+              title: '案例名称',
               dataIndex: 'name',
             }, {
               title: '创建时间',
@@ -27,7 +28,7 @@ class PcNewsList extends React.Component {
               title: '操作', dataIndex: 'action', 
               render: (text, record, index) => {
                     return (
-                      this.state.data.length > 1 ?
+                      this.state.data.length > 0 ?
                       (
                        <div>
                           <span style={{marginRight:10}}>
@@ -48,7 +49,8 @@ class PcNewsList extends React.Component {
             selectedRowKeys: [],
             data:[],
             modalVisible: false,
-            idAction:''
+            idAction:'',
+            caseObj:''
           }
     }
     componentDidMount() {
@@ -57,15 +59,14 @@ class PcNewsList extends React.Component {
             method: 'GET'
             };
            
-        fetch("api/admin/newslist" , myFetchOptions)
+        fetch("api/admin/caselist" , myFetchOptions)
         .then(response => response.json())
         .then(json => {
             const dataArr = [];
-            console.log(json.news)
-            json.news.forEach(function(item,index){
+            json.caseNewObj.forEach(function(item,index){
                 dataArr.push({
                 key: item._id,
-                name: item.title,
+                name: item.name,
                 time: item.meta.createAt,
                 type: item.type
               });
@@ -81,14 +82,30 @@ class PcNewsList extends React.Component {
 
     onModify(record){
         this.setState({idAction:record.key});
-        this.setModalVisible(true);
+        var myFetchOptions = {
+            method: 'GET'
+            };
+            fetch(`api/admin/case/${record.key}`, myFetchOptions)
+            .then(response => response.json())
+            .then(json => {
+                this.setState({caseObj:json.caseNewObj});
+                this.setModalVisible(true);        
+            });
+        
     }
      handleSubmit(e)
     {
         //页面开始向 API 进行提交数据
         e.preventDefault();
             var formData = this.props.form.getFieldsValue();
-            
+            if(!formData.name){
+                message.success("请输入金属名称");
+                return 
+            }
+            if(!formData.type){
+                message.success("请选择金属类型");
+                return 
+            }
             var data = new FormData();
             data.append( "json", JSON.stringify(formData));
             var myFetchOptions = {
@@ -96,7 +113,7 @@ class PcNewsList extends React.Component {
             body:data
             };
             
-            fetch(`api/admin/news/${this.state.idAction}`, myFetchOptions)
+            fetch(`api/admin/case/${this.state.idAction}`, myFetchOptions)
             .then(response => response.json())
             .then(json => {
                 if(String(json.data) == '1'){
@@ -113,7 +130,7 @@ class PcNewsList extends React.Component {
     var myFetchOptions = {
             method: 'DELETE'
             };  
-        fetch(`api/admin/news/${record.key}`, myFetchOptions)
+        fetch(`api/admin/case/${record.key}`, myFetchOptions)
         .then(response => response.json())
         .then(json => {
             if(String(json.data) == '1'){
@@ -132,43 +149,85 @@ class PcNewsList extends React.Component {
                 <Table columns={this.columns} dataSource={this.state.data}/>
                 <Modal title="修改用户" wrapClassName="vertical-center-modal" visible={this.state.modalVisible} onCancel= {()=>this.setModalVisible(false)} onOk={() => this.setModalVisible(false)} okText="关闭">
                             <Card type="card">
-                                    <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
+                                <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
+                                    <FormItem label="名称">
+                                    {getFieldDecorator('name', {
+                                        initialValue: this.state.caseObj.name || '',
+                                        rules: [{ required: true, message: 'Please input your username!' }],
+                                      })(
+                                      <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入金属名称"/>
+                                    )}
+                                    </FormItem>
+                                    <FormItem label="元素名">
+                                    {getFieldDecorator('casename', {
+                                        initialValue: this.state.caseObj.casename || '',
+                                        rules: [{ required: true, message: 'Please input your username!' }],
+                                      })(
+                                      <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入金属名称" />
+                                    )}
+                                    </FormItem>
                                     <FormItem label="标题">
                                     {getFieldDecorator('title', {
+                                        initialValue: this.state.caseObj.title || '',
                                         rules: [{ required: true, message: 'Please input your username!' }],
                                       })(
                                       <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入标题" />
                                     )}
                                     </FormItem>
-                                    <FormItem label="创建日期">
-                                    {getFieldDecorator('date', {
+                                    <FormItem label="摘要">
+                                    {getFieldDecorator('abstract', {
+                                        initialValue: this.state.caseObj.abstract || '',
                                         rules: [{ required: true, message: 'Please input your Password!' }],
                                       })(
-                                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="请输入创建日期" />
+                                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="请输入摘要" type="textarea"/>
                                     )}
                                     </FormItem>
                                     <FormItem label="小图">
                                     {getFieldDecorator('thumbnail_pic_s', {
+                                        initialValue: this.state.caseObj.thumbnail_pic_s || '',
                                         rules: [{ required: true, message: 'Please input your Password agein!' }],
                                       })(
                                         <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="小图" />
                                     )}
                                     </FormItem>
-                                    <FormItem label="url">
-                                    {getFieldDecorator('url', {
+                                    <FormItem label="参考文献">
+                                    {getFieldDecorator('reference', {
+                                        initialValue: this.state.caseObj.reference || '',
                                         rules: [{ required: true, message: 'Please input your Password agein!' }],
                                       })(
-                                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="url" />
+                                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="小图" />
+                                    )}
+                                    </FormItem>
+                                    <FormItem label="author_name">
+                                    {getFieldDecorator('author_name', {
+                                        initialValue: this.state.caseObj.author_name || '',
+                                        rules: [{ required: true, message: 'Please input your Password agein!' }],
+                                      })(
+                                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="文章来源" />
                                     )}
                                     </FormItem>
                                     <FormItem label="类型">
                                     {getFieldDecorator('type', {
+                                        initialValue: this.state.caseObj.type || '',
                                         rules: [{ required: true, message: 'Please input your Password agein!' }],
                                       })(
-                                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="类型" />
+                                       <RadioGroup >
+                                          <Radio value="有色金属">有色金属</Radio>
+                                          <Radio value="稀有金属">稀有金属</Radio>
+                                          <Radio value="黑色金属">黑色金属</Radio>
+                                          <Radio value="非金属">非金属</Radio>
+                                      </RadioGroup>
                                     )}
                                     </FormItem>
-                                    <Button type="primary" htmlType="submit">确定修改</Button>
+                                    <FormItem label="内容">
+                                    {getFieldDecorator('content', {
+                                        initialValue: this.state.caseObj.content || '',
+                                        rules: [{ required: true, message: 'Please input your Password!' }],
+                                      })(
+                                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="请输入内容" type="textarea"/>
+                                    )}
+                                    </FormItem>
+                                    <Button type="primary" htmlType="submit">保存</Button>
                                 </Form>
                             </Card>
                 </Modal>
@@ -192,4 +251,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Form.create({})(PcNewsList))
+)(Form.create({})(PcCaseList))

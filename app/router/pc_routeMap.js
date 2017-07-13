@@ -39,6 +39,11 @@ const PcResourec = (location, cb) => {
     cb(null, require('../containers/Resourec/pc_resourec').default)
     },'PcResourec')
 }
+const PcMy = (location, cb) => {
+    require.ensure([], require => {
+    cb(null, require('../containers/My/pc_my').default)
+    },'PcMy')
+}
 const PcNewsDetails = (location, cb) => {
     require.ensure([], require => {
     cb(null, require('../containers/NewDetails/pc_news_details').default)
@@ -77,11 +82,12 @@ class RouterMap extends React.Component {
                     <Route path='component' getComponent={PcComponent}></Route>
                     <Route path='pattern' getComponent={PcPattern}></Route>
                     <Route path='resourec' getComponent={PcResourec}></Route>
+                    <Route path='my' getComponent={PcMy}></Route>
                     <Route path="/details/:uniquekey" getComponent={PcNewsDetails}></Route>
                     <Route path="adminNews" getComponent={PcAdminNews}></Route>
                     <Route path="adminUsers" getComponent={PcAdminUsers}></Route>
                     <Route path="adminCases" getComponent={PcAdminCases}></Route>
-                    <Route path="/adminMetals" getComponent={PcAdminMetal}></Route>
+                    <Route path="adminMetals" getComponent={PcAdminMetal}></Route>
                 </Route>
             </Router>
         )

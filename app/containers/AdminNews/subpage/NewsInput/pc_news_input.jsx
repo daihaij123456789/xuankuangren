@@ -3,10 +3,11 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {Router, Route, Link, browserHistory} from 'react-router'
-import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card,InputNumber,Row,Col,Menu} from 'antd'
+import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card,InputNumber,Row,Col,Menu,Radio} from 'antd'
 
 const FormItem = Form.Item;
 const MenuItem = Menu.Item;
+const RadioGroup = Radio.Group;
 class PcNewsInput extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -46,43 +47,83 @@ class PcNewsInput extends React.Component {
     render() {
         let {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
         return(
-             <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
-                <FormItem label="标题">
+             <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)} className="form-center">
+                <FormItem label="标题"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 14 }}
+                >
                 {getFieldDecorator('title', {
                     rules: [{ required: true, message: 'Please input your username!' }],
                   })(
                   <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入标题" />
                 )}
                 </FormItem>
-                <FormItem label="创建日期">
-                {getFieldDecorator('date', {
+                <FormItem label="创建作者"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 14 }}
+                >
+                {getFieldDecorator('author_name', {
                     rules: [{ required: true, message: 'Please input your Password!' }],
                   })(
-                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="请输入创建日期" />
+                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="请输入创建作者" />
                 )}
                 </FormItem>
-                <FormItem label="小图">
+                 <FormItem label="摘要"
+                    labelCol={{ span: 6 }}
+                     wrapperCol={{ span: 14 }}
+                >
+                {getFieldDecorator('abstract', {
+                    rules: [{ required: true, message: 'Please input your Password!' }],
+                  })(
+                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="请输入摘要" type="textarea"/>
+                )}
+                </FormItem>
+                <FormItem label="图片链接"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 14 }}
+                >
                 {getFieldDecorator('thumbnail_pic_s', {
                     rules: [{ required: true, message: 'Please input your Password agein!' }],
                   })(
-                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="小图" />
+                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="图片链接" />
                 )}
                 </FormItem>
-                <FormItem label="url">
+                <FormItem label="新闻链接"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 14 }}
+                >
                 {getFieldDecorator('url', {
                     rules: [{ required: true, message: 'Please input your Password agein!' }],
                   })(
-                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="url" />
+                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="新闻链接" />
                 )}
                 </FormItem>
-                <FormItem label="类型">
+                <FormItem label="类型"
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 14 }}
+                >
                 {getFieldDecorator('type', {
                     rules: [{ required: true, message: 'Please input your Password agein!' }],
                   })(
-                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="类型" />
+                   <RadioGroup >
+                      <Radio value="top">头条</Radio>
+                      <Radio value="guolei">国内矿业</Radio>
+                      <Radio value="guoji">国际矿业</Radio>
+                      <Radio value="kyhz">矿业合作</Radio>
+                  </RadioGroup>
                 )}
                 </FormItem>
-                <Button type="primary" htmlType="submit">保存</Button>
+                <FormItem label="内容"
+                    labelCol={{ span: 6 }}
+                     wrapperCol={{ span: 14 }}
+                >
+                {getFieldDecorator('content', {
+                    rules: [{ required: true, message: 'Please input your Password!' }],
+                  })(
+                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}  placeholder="请输入内容" type="textarea"/>
+                )}
+                </FormItem>
+                <Button type="primary" htmlType="submit" >保存</Button>
             </Form>
         )
     }

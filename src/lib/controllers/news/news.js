@@ -85,7 +85,6 @@ exports.modifyNews = async function(ctx,next) {
   var id = ctx.params.id;
   var news = ctx.request.body.fields.json;
   var newsObj = JSON.parse(news);
-  console.log(newsObj)
 
   if(id){
     var _newNews = await NewsXK.findOne({_id:id}).exec();
@@ -121,4 +120,14 @@ exports.modifyNews = async function(ctx,next) {
    ctx.body = {data:0}
   }
    
+}
+
+exports.getNews = async function(ctx,next) {
+  var id = ctx.params.id;
+  if(id){
+    var news = await NewsXK.findOne({_id:id}).exec();
+    ctx.body = {news};
+  }else{
+   ctx.body = {data:0}
+  }
 }

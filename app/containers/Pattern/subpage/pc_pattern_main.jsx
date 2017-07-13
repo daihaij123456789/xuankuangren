@@ -4,10 +4,10 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {Router, Route, Link, browserHistory} from 'react-router'
 import {Row,Col, Menu, Icon} from 'antd'
-import PcMetalArtcie from './MetalArticle/pc_metal_artcie'
-import './pc_com_main.less'
+import PcCaseArtcie from './CaseArticle/pc_case_artcie'
+import './pc_pattern_main.less'
 const SubMenu = Menu.SubMenu;
-class PcComponentMain extends React.Component {
+class PcPatternMain extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -16,7 +16,7 @@ class PcComponentMain extends React.Component {
             openKeys: [],
             info:{},
             SubMenuArr:[],
-            metalObj:''
+            caseObj:''
           }
     }
     handleClick(e){
@@ -24,11 +24,11 @@ class PcComponentMain extends React.Component {
                 method: 'GET'
             };
         this.setState({ current: e.key });
-        fetch(`api/admin/metal/${e.key}` , myFetchOptions)
+        fetch(`api/admin/case/${e.key}` , myFetchOptions)
             .then(response => response.json())
             .then(json => {
-               
-                this.setState({metalObj:json.metal})
+               console.log(json.caseNewObj)
+                this.setState({caseObj:json.caseNewObj})
             });
         
     }
@@ -55,17 +55,22 @@ class PcComponentMain extends React.Component {
        var myFetchOptions = {
                 method: 'GET'
             };
-        fetch("api/admin/metalcategories/categories" , myFetchOptions)
+        fetch("api/admin/casecategories/categories" , myFetchOptions)
         .then(response => response.json())
         .then(json => {
-            this.setState({SubMenuArr:json.metalCategories});
-            var keyId = json.metalCategories[0].metals[0]._id
-            this.setState({current:keyId});
-            fetch(`api/admin/metal/${keyId}` , myFetchOptions)
-            .then(response => response.json())
-            .then(json => {
-                this.setState({metalObj:json.metal})
-            });
+            
+            this.setState({SubMenuArr:json.caseCategories});
+            if(json.caseCategories.length > 0){
+                
+                var keyId = json.caseCategories[0].cases[0]._id;
+                this.setState({current:keyId});
+                fetch(`api/admin/case/${keyId}` , myFetchOptions)
+                .then(response => response.json())
+                .then(json => {
+                    this.setState({caseObj:json.caseNewObj});
+                })
+            }
+            
         });
         
     }
@@ -79,12 +84,13 @@ class PcComponentMain extends React.Component {
                             onOpenChange={this.onOpenChange.bind(this)}
                             onClick={this.handleClick.bind(this)}
                         >
-                            {this.state.SubMenuArr.map((elem)=> {
-                                return <SubMenu key={elem._id} title={<span><Icon type="appstore"/><span>{elem.name}</span></span>}>
-                                 {elem.metals.map((subelem) => {
+                            {
+                                this.state.SubMenuArr.map((elem)=> {
+                                 return <SubMenu key={elem._id} title={<span><Icon type="appstore"/><span>{elem.name}</span></span>}>
+                                    {elem.cases.map((subelem) => {
                                      return <Menu.Item key={subelem._id}>{subelem.name}</Menu.Item>
-                                 })}
-                                </SubMenu>
+                                    })}
+                                 </SubMenu>
                             })}
                         </Menu>
                             :"没有数据"
@@ -93,10 +99,10 @@ class PcComponentMain extends React.Component {
                 <div style={{background:'#fff',marginLeft:'50px',marginRight:'50px'}}>
                 <Row >
                     <Col xs={{ span: 24 }}  sm={{ span: 24 }} md={{ span: 5 }} lg={{ span: 3}}>
-                        {MenuList}  
+                          {MenuList}
                     </Col>
                     <Col xs={{ span: 0 }}  sm={{ span: 0 }} md={{ span: 19 }}  lg={{ span: 21 }} className="main-container">
-                        <PcMetalArtcie metalObj={this.state.metalObj}/>
+                        <PcCaseArtcie caseObj={this.state.caseObj}/>
                     </Col>
                 </Row>
                 </div>
@@ -120,4 +126,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PcComponentMain)
+)(PcPatternMain)

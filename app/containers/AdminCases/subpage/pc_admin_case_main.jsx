@@ -4,14 +4,14 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {Router, Route, Link, browserHistory} from 'react-router'
 import {Row,Col, Menu, Icon,message,Form,Input,Button} from 'antd'
-import PcCasesInput from './NewsInput/pc_news_input'
-import PcCasesList from './NewsList/pc_news_list'
+import PcCaseInput from './caseInput/pc_case_input'
+import PcCaseList from './caseList/pc_case_list'
 const FormItem = Form.Item;
 const SubMenu = Menu.SubMenu;
 
-import './pc_admin_cases_main.less'
+import './pc_admin_case_main.less'
 //const SubMenu = Menu.SubMenu;
-class PcAdminCasesMain extends React.Component {
+class PcAdminCaseMain extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -53,10 +53,10 @@ class PcAdminCasesMain extends React.Component {
         let {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
         switch(this.state.current){
             case'userList':
-                var List = <PcCasesInput />
+                var List = <PcCaseInput />;
             break;
             case 'newsList' :
-                var List = <PcCasesList />;
+                var List = <PcCaseList />;
             break;
         }
         return (
@@ -102,4 +102,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Form.create({})(PcAdminCasesMain))
+)(Form.create({})(PcAdminCaseMain))

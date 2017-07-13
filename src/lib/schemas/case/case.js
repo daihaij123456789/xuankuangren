@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId;
 // 电影数据类型
-var MetalSchema = new Schema({
+var CaseSchema = new Schema({
   //director: String,                     // 导演
   title: String,                      // 标题
   // doubanId: String,                   // 豆瓣Id微信
@@ -19,7 +19,7 @@ var MetalSchema = new Schema({
   // rating: String,                     // 豆瓣评分
   date:String,                        //创建日期
   name:String,                        //金属中文名字
-  metalname:String,                   //元素名字
+  casename:String,                   //元素名字
   author_name: String,                //来源
   thumbnail_pic: String,              //图片
   abstract:String,                    //摘要
@@ -48,7 +48,7 @@ var MetalSchema = new Schema({
 });
 
 // 模式保存前执行下面函数,如果当前数据是新创建，则创建时间和更新时间都是当前时间，否则更新时间是当前时间
-MetalSchema.pre('save',function(next) {
+CaseSchema.pre('save',function(next) {
   if(this.isNew) {
     this.meta.createAt = this.meta.updateAt = Date.now();
   }else{
@@ -58,7 +58,7 @@ MetalSchema.pre('save',function(next) {
 });
 
 // 定义查询静态方法
-MetalSchema.statics = {
+CaseSchema.statics = {
   fetch: function(cb) {
     return this
       .find({})
@@ -72,4 +72,4 @@ MetalSchema.statics = {
   }
 };
 
-module.exports = MetalSchema;
+module.exports = CaseSchema;

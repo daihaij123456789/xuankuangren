@@ -2,27 +2,13 @@ import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import {
-    Menu,
-    Icon,
-    Tabs,
-    message,
-    Form,
-    Input,
-    Button,
-    CheckBox,
-    Modal,
-    Row,
-    Col
-} from 'antd';
+import {Menu,Icon,Tabs,message,Form,Input,Button,Modal,Row,Col} from 'antd';
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
 import {Router, Route, Link, browserHistory} from 'react-router'
 import './pc_header.less'
 
-function hasErrors(fieldsError) {
-        return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
+
 class PcHeader extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -107,10 +93,7 @@ class PcHeader extends React.Component {
     }
     handleSubmitSignUp(e)
     {
-        //页面开始向 API 进行提交数据
         e.preventDefault();
-        /*this.props.form.validateFields((err, values) => {
-          if (!err) {*/
             var formData = this.props.form.getFieldsValue();
             if(formData.r_password!==formData.r_confirmPassword){
                 message.success("再次输入密码不相同，请重新输入!!!");
@@ -138,10 +121,6 @@ class PcHeader extends React.Component {
                 message.success("注册成功!!!");
                 this.setModalVisible(false);
             });
-            
-          /*}
-        });*/
-        
     };
     callback(key) {
         if (key == 1) {
@@ -162,11 +141,9 @@ class PcHeader extends React.Component {
         let setAdminStyle =  {
             marginBottom:this.state.setAdminStyle
         }
-        let {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
-        const userNameError = isFieldTouched('userName') && getFieldError('userName');
-        const passwordError = isFieldTouched('password') && getFieldError('password');
+        let {getFieldDecorator} = this.props.form;
         const adminPaineShow = this.state.adminShow
-            ?<div style={{height:50}}>
+            ?<div className="adminPaine">
                 <Link to="/adminNews"><span style={{marginRight:50}}>新闻管理页面</span></Link>
                 <Link to="/adminUsers"><span style={{marginRight:50}}>用户管理页面</span></Link>
                 <Link to="/adminMetals"><span style={{marginRight:50}}>金属管理页面</span></Link>
@@ -216,6 +193,9 @@ class PcHeader extends React.Component {
                                 <Menu.Item key="resourec">
                                 <Link to="/resourec"><Icon type="switcher" /><span>资源共享</span></Link>
                                 </Menu.Item>
+                                <Menu.Item key="my">
+                                <Link to="/my"><Icon type="switcher" /><span>关于我们</span></Link>
+                                </Menu.Item>
                                 
                             </Menu>
                             <Modal title="用户中心" wrapClassName="vertical-center-modal" visible={this.state.modalVisible} onCancel= {()=>this.setModalVisible(false)} onOk={() => this.setModalVisible(false)} okText="关闭">
@@ -223,27 +203,21 @@ class PcHeader extends React.Component {
                                     <TabPane tab="登录" key="1">
                                         <Form layout="horizontal" onSubmit={this.handleSubmitSignIn.bind(this)}>
 
-                                            <FormItem label="账户"
-                                                validateStatus={userNameError ? 'error' : ''}
-                                                help={userNameError || ''}
-                                            >
+                                            <FormItem label="账户">
                                             {getFieldDecorator('userName', {
                                                 rules: [{ required: true, message: 'Please input your username!' }],
                                               })(
                                                 <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入您的账号" />
                                             )}
                                             </FormItem>
-                                            <FormItem label="密码"
-                                                validateStatus={passwordError ? 'error' : ''}
-                                                help={passwordError || ''}
-                                            >
+                                            <FormItem label="密码">
                                             {getFieldDecorator('password', {
                                                 rules: [{ required: true, message: 'Please input your Password!' }],
                                               })(
                                                 <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入您的密码" />
                                             )}
                                             </FormItem>
-                                            <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>登录</Button>
+                                            <Button type="primary" htmlType="submit">登录</Button>
                                         </Form>
                                     </TabPane>
                                     <TabPane tab="注册" key="2">

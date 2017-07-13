@@ -6,9 +6,8 @@ import {Row,Col, Menu, Icon} from 'antd'
 import {Router, Route, Link, browserHistory} from 'react-router'
 import PcHeader from '../../components/PcHeader/pc_header'
 import PcFooter from '../../components/PcFooter/pc_footer'
-import PcAdminCasesMain from './subpage/pc_admin_cases_main'
-
-class PcAdminCases extends React.Component {
+const SubMenu = Menu.SubMenu;
+class PcMy extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -18,9 +17,8 @@ class PcAdminCases extends React.Component {
         return (
             <div id="react-content">
                 <div className="page-wrapper">
-                    <PcHeader/>
-                    <PcAdminCasesMain />
-                    <PcFooter/>
+                    <PcHeader type="my"/>
+                    <PcFooter />
                 </div>
             </div>
         )
@@ -42,4 +40,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PcAdminCases)
+)(PcMy)
