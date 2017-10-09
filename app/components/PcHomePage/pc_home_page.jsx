@@ -1,12 +1,8 @@
 import React from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {Router, Route, Link, browserHistory} from 'react-router'
+import {Link} from 'react-router'
 class PcHomePage extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     }
     render() {
         const image= this.props.image + " image-wrapper pc_section"
@@ -42,19 +38,5 @@ class PcHomePage extends React.Component {
     }
 }
 
-// -------------------redux react 绑定--------------------
 
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PcHomePage)
+export default PcHomePage

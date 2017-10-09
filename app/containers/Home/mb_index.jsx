@@ -2,7 +2,7 @@ import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
+import './pc_home.less'
 class MbHemo extends React.Component {
     constructor(props, context) {
         super(props, context);

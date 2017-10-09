@@ -2,10 +2,14 @@ var path = require('path')
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 module.exports = {
   entry: {
     app: path.resolve(__dirname, 'app/index.jsx'),
+    //header:path.resolve(__dirname, 'app/containers/Home/pc_home_js.jsx'),
+    //header:path.resolve(__dirname, 'app/components/PcHeader/pc_header.jsx'),
+    //header:path.resolve(__dirname, 'app/components/PcHeader/pc_header_js.jsx'),
+    //footer:path.resolve(__dirname, 'app/components/PcFooter/pc_footer_js.jsx'),
+    //adminCase:path.resolve(__dirname, 'app/containers/AdminCases/pc_admin_case_js.jsx'),
     // 将 第三方依赖 单独打包
     vendor: [
       // 'react',
@@ -15,12 +19,13 @@ module.exports = {
       // 'redux',
       'es6-promise',
       //'whatwg-fetch',
-      'immutable',
+      'immutable'
 
-    ]
+    ],
+
   },
   output: {
-    path: path.resolve(__dirname, 'src/public/build'),//__dirname + "./src/public/build",
+    path: path.resolve(__dirname, 'src/public/build/components'),//__dirname + "./src/public/build",
     filename: "[name].[chunkhash:8].js",
     //filename: "[name].js",
     publicPath: '/',

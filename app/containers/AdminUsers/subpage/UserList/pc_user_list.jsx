@@ -1,16 +1,10 @@
 import React from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {Router, Route, Link, browserHistory} from 'react-router'
-import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card,InputNumber,Row,Col,Menu} from 'antd'
+import {Table, Icon, Button, Popconfirm, message, Form, Modal, Card,InputNumber} from 'antd'
 
 const FormItem = Form.Item;
-const MenuItem = Menu.Item;
 class PcUserList extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.columns = [{
               title: 'ID',
               dataIndex: 'key',
@@ -45,7 +39,7 @@ class PcUserList extends React.Component {
             }
         ];
         this.state= {
-            selectedRowKeys: [],
+            selecteKeys: [],
             data:[],
             modalVisible: false,
             idAction:''
@@ -125,7 +119,7 @@ class PcUserList extends React.Component {
     
     }
     render() {
-        let {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
+        let {getFieldDecorator} = this.props.form;
         return (
             <div>
                 <Table columns={this.columns} dataSource={this.state.data}/>
@@ -147,20 +141,4 @@ class PcUserList extends React.Component {
         )
     }
 }
-
-// -------------------redux react 绑定--------------------
-
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Form.create({})(PcUserList))
+export default Form.create({})(PcUserList)

@@ -1,16 +1,12 @@
 import React from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {Router, Route, Link, browserHistory} from 'react-router'
-import {Row,Col, Menu, Icon} from 'antd'
+import {Row,Col, Menu, Icon,Breadcrumb} from 'antd'
 import PcMetalArtcie from './MetalArticle/pc_metal_artcie'
+import {Link} from 'react-router'
 import './pc_com_main.less'
 const SubMenu = Menu.SubMenu;
 class PcComponentMain extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state= {
             current: '',
             openKeys: [],
@@ -27,7 +23,6 @@ class PcComponentMain extends React.Component {
         fetch(`api/admin/metal/${e.key}` , myFetchOptions)
             .then(response => response.json())
             .then(json => {
-               
                 this.setState({metalObj:json.metal})
             });
         
@@ -80,7 +75,7 @@ class PcComponentMain extends React.Component {
                             onClick={this.handleClick.bind(this)}
                         >
                             {this.state.SubMenuArr.map((elem)=> {
-                                return <SubMenu key={elem._id} title={<span><Icon type="appstore"/><span>{elem.name}</span></span>}>
+                                return <SubMenu key={elem._id} title={<span><Icon type="folder"/><span>{elem.name}</span></span>}>
                                  {elem.metals.map((subelem) => {
                                      return <Menu.Item key={subelem._id}>{subelem.name}</Menu.Item>
                                  })}
@@ -96,6 +91,11 @@ class PcComponentMain extends React.Component {
                         {MenuList}  
                     </Col>
                     <Col xs={{ span: 0 }}  sm={{ span: 0 }} md={{ span: 19 }}  lg={{ span: 21 }} className="main-container">
+                        <Breadcrumb style={{ margin: '12px 0' }}>
+                          <Breadcrumb.Item><Link to="/"><span>首页</span></Link></Breadcrumb.Item>
+                          <Breadcrumb.Item><Link to="/component"><span>技术交流</span></Link></Breadcrumb.Item>
+                          <Breadcrumb.Item>App</Breadcrumb.Item>
+                        </Breadcrumb>
                         <PcMetalArtcie metalObj={this.state.metalObj}/>
                     </Col>
                 </Row>
@@ -105,19 +105,4 @@ class PcComponentMain extends React.Component {
     }
 }
 
-// -------------------redux react 绑定--------------------
-
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PcComponentMain)
+export default PcComponentMain

@@ -1,18 +1,9 @@
 import React from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {Router, Route, Link, browserHistory} from 'react-router'
-import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card,InputNumber,Row,Col,Menu,Radio} from 'antd'
+import {Input, Icon, Button, message, Form,Radio} from 'antd'
 
 const FormItem = Form.Item;
-const MenuItem = Menu.Item;
 const RadioGroup = Radio.Group;
 class PcCaseInput extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-    }
     handleSubmit(e)
     {
         //页面开始向 API 进行提交数据
@@ -45,7 +36,7 @@ class PcCaseInput extends React.Component {
         
     };
     render() {
-        let {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
+        let {getFieldDecorator} = this.props.form;
         return(
             <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)} className="form-center">
                 <FormItem label="案例名称"
@@ -57,6 +48,8 @@ class PcCaseInput extends React.Component {
                   <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入案例名称" />
                 )}
                 </FormItem>
+
+
                 <FormItem label="矿石名称"
                     labelCol={{ span: 6 }}
                 wrapperCol={{ span: 14 }}>
@@ -68,14 +61,14 @@ class PcCaseInput extends React.Component {
                 </FormItem>
                 <FormItem label="标题"
                     labelCol={{ span: 6 }}
-                    wrapperCol={{ span: 14 }}
-                >
-                {getFieldDecorator('title', {
+                wrapperCol={{ span: 14 }}>
+                {getFieldDecorator('title1', {
                     rules: [{ required: true, message: 'Please input your username!' }],
                   })(
                   <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入标题" />
                 )}
                 </FormItem>
+
                 <FormItem label="摘要"
                     labelCol={{ span: 6 }}
                      wrapperCol={{ span: 14 }}
@@ -146,20 +139,4 @@ class PcCaseInput extends React.Component {
         )
     }
 }
-
-// -------------------redux react 绑定--------------------
-
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Form.create({})(PcCaseInput))
+export default Form.create({})(PcCaseInput)

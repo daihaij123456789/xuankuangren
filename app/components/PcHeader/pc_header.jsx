@@ -1,18 +1,15 @@
 import React from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {Menu,Icon,Tabs,message,Form,Input,Button,Modal,Row,Col} from 'antd';
-const FormItem = Form.Item;
-const TabPane = Tabs.TabPane;
-import {Router, Route, Link, browserHistory} from 'react-router'
+//import {Menu,Icon,Tabs,message,Form,Input,Button,Modal,Row,Col} from 'antd';
+import {Menu,Icon,Row,Col} from 'antd';
+//const FormItem = Form.Item;
+//const TabPane = Tabs.TabPane;
+import {Link} from 'react-router'
 import './pc_header.less'
 
 
 class PcHeader extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state={
             current:this.props.type,
             modalVisible: false,
@@ -23,15 +20,12 @@ class PcHeader extends React.Component {
             adminShow:false,
             rote:'',
             setAdminStyle:0
-        
         }
     }
     componentWillMount(){
         if (localStorage.userid!='') {
             this.setState({hasLogined:true});
-            
             this.setState({userNickName:localStorage.userNickName,userid:localStorage.userid,rote:localStorage.rote});
-            console.log(localStorage.role)
             if(localStorage.rote>10){
                 this.setState({adminShow:true});
                 this.setState({setAdminStyle:50})
@@ -39,8 +33,7 @@ class PcHeader extends React.Component {
         }
     };
 
-    setModalVisible(value)
-    {
+    setModalVisible(value){
         this.setState({modalVisible: value});
     };
     handleClick(e) {
@@ -53,7 +46,7 @@ class PcHeader extends React.Component {
             }
         }
     };
-    handleSubmitSignIn(e){
+    /*handleSubmitSignIn(e){
         e.preventDefault();
         var formData = this.props.form.getFieldsValue();
         var data = new FormData();
@@ -62,7 +55,6 @@ class PcHeader extends React.Component {
             method: 'POST',
             body:data
             };
-            
             fetch("api/user/signin" , myFetchOptions)
             .then(response => response.json())
             .then(json => {
@@ -136,12 +128,12 @@ class PcHeader extends React.Component {
         this.setState({hasLogined:false});
         this.setState({adminShow:false});
         this.setState({setAdminStyle:0});
-    };
+    };*/
     render() {
         let setAdminStyle =  {
             marginBottom:this.state.setAdminStyle
         }
-        let {getFieldDecorator} = this.props.form;
+        /*let {getFieldDecorator} = this.props.form;
         const adminPaineShow = this.state.adminShow
             ?<div className="adminPaine">
                 <Link to="/adminNews"><span style={{marginRight:50}}>新闻管理页面</span></Link>
@@ -152,26 +144,26 @@ class PcHeader extends React.Component {
             :<div></div>
         const userShow = this.state.hasLogined
             ? <Menu.Item key="logout" class="register">
-                    {/**/}
-                        <Button type="ghost" htmlType="button"><Link target="_blank" to={`/usercenter`}>欢迎您{this.state.userNickName}</Link></Button>
-                    {/**/}
+                    <Button type="ghost" htmlType="button"><Link target="_blank" to={`/userCenter`}>欢迎您{this.state.userNickName}</Link></Button>
                     &nbsp;&nbsp;
                     <Button type="ghost" htmlType="button" onClick={this.logout.bind(this)}>退出</Button>
                 </Menu.Item>
             : <Menu.Item key="register" class="register">
                 <Icon type="appstore"/>注册/登录
-            </Menu.Item>;
+            </Menu.Item>;*/
+
+        
         return (
             <header id="header" className="header-panle clearfix" style={setAdminStyle}>
                 <div>
                     <Row >
-                        <Col xs={{ span: 24 }}  sm={{ span: 24 }} md={{ span: 5 }} lg={{ span: 4 }}>
+                        <Col xs={{ span: 10 }}  sm={{ span: 8 }} md={{ span: 5 }} lg={{ span: 4 }}>
                             <Link id="logo" to="/">
-                            <img alt="logo" src="https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg" />
-                            <span>华南选矿冶金技术网</span>
+                            <img alt="logo" src={require('../../images/logo.svg')} />
+                            <span>华南选矿技术网</span>
                             </Link>
                         </Col>
-                        <Col xs={{ span: 0 }}  sm={{ span: 0 }} md={{ span: 19 }}  lg={{ span: 16 }}>
+                        <Col xs={{ span: 14 }}  sm={{ span: 16 }} md={{ span: 19 }}  lg={{ span: 16 }}>
                             <Menu
                                 onClick={this.handleClick.bind(this)}
                                 selectedKeys={[this.state.current]}
@@ -181,9 +173,9 @@ class PcHeader extends React.Component {
                                 <Menu.Item key="home">
                                 <Link to="/"><Icon type="bars" /><span>首页</span></Link>
                                 </Menu.Item>
-                                <Menu.Item key="introduce">
-                                <Link to="/introduce"><Icon type="solution" /><span>选矿前沿</span></Link>
-                                </Menu.Item>
+                                {/*<Menu.Item key="introduce">
+                                <Link to="/introduce"><Icon type="eye-o" /><span>选矿前沿</span></Link>
+                                </Menu.Item>*/}
                                 <Menu.Item key="component">
                                 <Link to="/component"><Icon type="api" /><span>技术交流</span></Link>
                                 </Menu.Item>
@@ -194,11 +186,11 @@ class PcHeader extends React.Component {
                                 <Link to="/resourec"><Icon type="switcher" /><span>资源共享</span></Link>
                                 </Menu.Item>
                                 <Menu.Item key="my">
-                                <Link to="/my"><Icon type="switcher" /><span>关于我们</span></Link>
+                                <Link to="/my"><Icon type="user" /><span>关于我们</span></Link>
                                 </Menu.Item>
                                 
                             </Menu>
-                            <Modal title="用户中心" wrapClassName="vertical-center-modal" visible={this.state.modalVisible} onCancel= {()=>this.setModalVisible(false)} onOk={() => this.setModalVisible(false)} okText="关闭">
+                            {/*<Modal title="用户中心" wrapClassName="vertical-center-modal" visible={this.state.modalVisible} onCancel= {()=>this.setModalVisible(false)} onOk={() => this.setModalVisible(false)} okText="关闭">
                                 <Tabs type="card" onChange={this.callback.bind(this)}>
                                     <TabPane tab="登录" key="1">
                                         <Form layout="horizontal" onSubmit={this.handleSubmitSignIn.bind(this)}>
@@ -247,9 +239,9 @@ class PcHeader extends React.Component {
                                         </Form>
                                     </TabPane>
                                 </Tabs>
-                            </Modal>
+                            </Modal>*/}
                         </Col>
-                        <Col xs={{ span: 0 }}  sm={{ span: 0 }} md={{ span: 0 }}  lg={{ span: 4 }}>
+                        {/*<Col xs={{ span: 0 }}  sm={{ span: 0 }} md={{ span: 0 }}  lg={{ span: 4 }}>
                         <Menu
                                 onClick={this.handleClick.bind(this)}
                                 selectedKeys={[this.state.current]}
@@ -258,29 +250,17 @@ class PcHeader extends React.Component {
                             >
                             {userShow}
                         </Menu>
-                        </Col>
+                        </Col>*/}
                     </Row>
                 </div>
-                {adminPaineShow}
+                {/*adminPaineShow*/}
             </header>
             
         )
     }
 }
 
-// -------------------redux react 绑定--------------------
 
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
 
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Form.create({})(PcHeader))
+//export default Form.create({})(PcHeader)
+export default PcHeader

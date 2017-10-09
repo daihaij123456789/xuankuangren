@@ -1,19 +1,32 @@
 import React from 'react'
-import { Router, Route, IndexRoute } from 'react-router'
+import { Router, Route, IndexRoute,hashHistory,browserHistory} from 'react-router'
 
 import App from '../containers'
-/*import PcHome from '../containers/Home/pc_index'
-import PcIntroduce from '../containers/Introduce/pc_introduce'
-import PcComponent from '../containers/Component/pc_component'
+import PcHome from '../containers/Home/pc_index'
+//import PcIntroduce from '../containers/Introduce/pc_introduce'
+
+
+/*import PcComponent from '../containers/Component/pc_component'
 import PcPattern from '../containers/Pattern/pc_pattern'
 import PcResourec from '../containers/Resourec/pc_resourec'
-import PcNewsDetails from '../containers/NewDetails/pc_news_details'*/
-import NotFound from '../containers/404'
+import PcMetal from '../containers/Metal/pc_metal'
+import PcAdminNews from '../containers/AdminNews/pc_admin_news'
+import PcAdminUsers from '../containers/AdminUsers/pc_admin_users'
+import PcAdminCases from '../containers/AdminCases/pc_admin_cases'
+import PcAdminMetal from '../containers/AdminMetal/pc_admin_metal'
+import PcMy from '../containers/My/pc_my'
+*/
+
+
+
+//import PcNewsDetails from '../containers/NewDetails/pc_news_details'
+
+/*import NotFound from '../containers/404'*/
 /*const App = (location, cb) => {
     require.ensure([], require => {
     cb(null, require('../containers/index').default)
     },'app1')
-}*/
+}
 const PcHome = (location, cb) => {
     require.ensure([], require => {
     cb(null, require('../containers/Home/pc_index').default)
@@ -23,7 +36,7 @@ const PcIntroduce = (location, cb) => {
     require.ensure([], require => {
     cb(null, require('../containers/Introduce/pc_introduce').default)
     },'PcIntroduce')
-}
+}*/
 const PcComponent = (location, cb) => {
     require.ensure([], require => {
     cb(null, require('../containers/Component/pc_component').default)
@@ -44,7 +57,12 @@ const PcMy = (location, cb) => {
     cb(null, require('../containers/My/pc_my').default)
     },'PcMy')
 }
-const PcNewsDetails = (location, cb) => {
+const PcMetal = (location, cb) => {
+    require.ensure([], require => {
+    cb(null, require('../containers/Metal/pc_metal').default)
+    },'PcMetal')
+}
+/*const PcNewsDetails = (location, cb) => {
     require.ensure([], require => {
     cb(null, require('../containers/NewDetails/pc_news_details').default)
     },'PcNewsDetails')
@@ -68,26 +86,29 @@ const PcAdminMetal = (location, cb) => {
     require.ensure([], require => {
     cb(null, require('../containers/AdminMetal/pc_admin_metal').default)
     },'PcAdminMetal')
-}
-// 如果是大型项目，router部分就需要做更加复杂的配置
-// 参见 https://github.com/reactjs/react-router/tree/master/examples/huge-apps
+}*/
 
 class RouterMap extends React.Component {
     render() {
         return (
-            <Router history={this.props.history}>
-                <Route path='/' component={App}>
-                    <IndexRoute getComponent={PcHome}/>
-                    <Route path='introduce' getComponent={PcIntroduce}></Route>
+            <Router history={hashHistory}>
+                <Route  path="/" component={App}>
+                    <IndexRoute component={PcHome} />
                     <Route path='component' getComponent={PcComponent}></Route>
                     <Route path='pattern' getComponent={PcPattern}></Route>
                     <Route path='resourec' getComponent={PcResourec}></Route>
                     <Route path='my' getComponent={PcMy}></Route>
-                    <Route path="/details/:uniquekey" getComponent={PcNewsDetails}></Route>
-                    <Route path="adminNews" getComponent={PcAdminNews}></Route>
-                    <Route path="adminUsers" getComponent={PcAdminUsers}></Route>
-                    <Route path="adminCases" getComponent={PcAdminCases}></Route>
-                    <Route path="adminMetals" getComponent={PcAdminMetal}></Route>
+                    {/*<Route path='/metal/:metalId' getComponent={PcMetal}></Route>*/}
+                    <Route path='/metal/5966c664fe8f311478cbd62f' getComponent={PcMetal}></Route>
+
+                    {/*<Route path='introduce' component={PcIntroduce}></Route>
+                    <Route path="/details/:uniquekey" getComponent={PcNewsDetails}></Route>*/}
+                     
+
+                    {/*<Route path="adminNews" component={PcAdminNews}></Route>
+                    <Route path="adminUsers" component={PcAdminUsers}></Route>
+                    <Route path="adminCases" component={PcAdminCases}></Route>
+                    <Route path="adminMetals" component={PcAdminMetal}></Route>*/}  
                 </Route>
             </Router>
         )

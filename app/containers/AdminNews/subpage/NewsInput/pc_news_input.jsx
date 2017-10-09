@@ -1,17 +1,11 @@
 import React from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {Router, Route, Link, browserHistory} from 'react-router'
-import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card,InputNumber,Row,Col,Menu,Radio} from 'antd'
+import { Input, Icon, Button, Popconfirm, message, Form,Col,Radio} from 'antd'
 
 const FormItem = Form.Item;
-const MenuItem = Menu.Item;
 const RadioGroup = Radio.Group;
 class PcNewsInput extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     }
     handleSubmit(e)
     {
@@ -52,7 +46,7 @@ class PcNewsInput extends React.Component {
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 14 }}
                 >
-                {getFieldDecorator('title', {
+                {getFieldDecorator('title1', {
                     rules: [{ required: true, message: 'Please input your username!' }],
                   })(
                   <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入标题" />
@@ -128,20 +122,4 @@ class PcNewsInput extends React.Component {
         )
     }
 }
-
-// -------------------redux react 绑定--------------------
-
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Form.create({})(PcNewsInput))
+export default Form.create({})(PcNewsInput)

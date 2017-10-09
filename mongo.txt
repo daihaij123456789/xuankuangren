@@ -1,3 +1,7 @@
 mongod.exe -dbpath D:\database\mongodb\data\movie
 redis-server.exe redis.conf
 supervisor bin/www
+本地 mongodump -h 127.0.0.1:27017 -d movie -o movie99
+上传到线上
+/usr/local/mongodb/bin
+线上 mongorestore --host 127.0.0.1:27017 -d movie /usr/local/mongodb/data/movie

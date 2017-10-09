@@ -1,13 +1,9 @@
 import React from 'react';
 import {Card} from 'antd';
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {Router, Route, Link, browserHistory} from 'react-router'
+import {Link} from 'react-router'
 class PCNewsBlock extends React.Component {
 	constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
 			news: ''
 		};
@@ -21,7 +17,7 @@ class PCNewsBlock extends React.Component {
 		.then(json => {
 			this.setState({news: json})
 		});
-		fetch('api/introduce?&type=' + 'top' , myFetchOptions)
+		/*fetch('api/introduce?&type=' + 'top' , myFetchOptions)
 		.then(response => response.json())
 		.then(json => {
 			var newsArr = json.categories.news.map((elem,index)=> {
@@ -31,7 +27,7 @@ class PCNewsBlock extends React.Component {
 				
 			})
 			console.log(newsArr);
-		});
+		});*/
 	};
 	render() {
 		const {news} = this.state;
@@ -56,17 +52,4 @@ class PCNewsBlock extends React.Component {
 	};
 }
 
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PCNewsBlock)
+export default PCNewsBlock

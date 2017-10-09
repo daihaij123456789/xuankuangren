@@ -8,9 +8,11 @@ var Metal = require('../lib/controllers/metal/metal');
 var MetalCategory = require('../lib/controllers/metal/metal_category');
 var CaseCategory = require('../lib/controllers/case/case_category');
 var Case = require('../lib/controllers/case/case');
+var Wechat = require('../lib/controllers/wechat/wechat');  // 微信查电影
+var Game = require('../lib/controllers/wechat/game');
 //首页数据
-router.get('api/homead', async function(ctx, next) {
-    ctx.body = {}
+router.get('/', async function(ctx, next) {
+    await ctx.render('index');
 });
 var infoObj = [{id:'sub11',title:'快速上手',image:'1',content:'Ant Design React 致力于提供给程序员愉悦的开发体验。'},{id:'sub12',title:'开发体验',image:'Ant Design React 致力于提供给程序员愉悦的开发体验。',content:'Ant Design React 致力于提供给程序员愉悦的开发体验。'},{id:'2',title:'开发体验',image:'Ant Design React 致力于提供给程序员愉悦的开发体验'},{id:'sub13',title:'程序员',image:'3',content:'Ant Design React 致力于提供给程序员愉悦的开发体验'}]
 router.get('api/detail/info/:id', async function(ctx, next) {
@@ -76,6 +78,14 @@ router.delete('api/admin/case/:id', Case.delCase); //删除案例
 router.put('api/admin/case/:id', Case.modifyCase);  //修改案例
 router.get('api/admin/case/:id', Case.getCase);  //获取案例
 router.get('api/admin/casecategories/categories', CaseCategory.getCategories);  //获取案例分类
+/*微信验证*/
+router.get('wx', Wechat.hear)
+router.post('wx', Wechat.hear)
 
 
+router.get('voiceMovie', Game.guess)
+router.get('wechat/movie/:id', Game.findMovie)
+router.get('wechat/music/:id', Game.findMusic)
+router.get('wechat/jumpMovie/:id', Game.jumpMovie)
+router.get('wechat/jumpMusic/:id', Game.jumpMusic)
 module.exports = router;

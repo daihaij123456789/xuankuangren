@@ -90,4 +90,4 @@ class PcCommonComments extends React.Component {
 		);
 	};
 }
-export default PcCommonComments = Form.create({})(PcCommonComments);
+export default Form.create({})(PcCommonComments);

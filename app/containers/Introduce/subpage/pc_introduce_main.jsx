@@ -157,19 +157,4 @@ class PcIntroduceMain extends React.Component {
     }
 }
 
-// -------------------redux react 绑定--------------------
-
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PcIntroduceMain)
+export default PcIntroduceMain

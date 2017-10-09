@@ -1,17 +1,11 @@
 import React from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {Router, Route, Link, browserHistory} from 'react-router'
-import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card,InputNumber,Row,Col,Menu,Radio} from 'antd'
+import {Input, Icon, Button, Popconfirm, message, Form,Row,Col,Radio} from 'antd'
 
 const FormItem = Form.Item;
-const MenuItem = Menu.Item;
 const RadioGroup = Radio.Group;
 class PcMetalInput extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     }
     handleSubmit(e)
     {
@@ -70,7 +64,7 @@ class PcMetalInput extends React.Component {
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 14 }}
                 >
-                {getFieldDecorator('title', {
+                {getFieldDecorator('title1', {
                     rules: [{ required: true, message: 'Please input your username!' }],
                   })(
                   <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}  placeholder="请输入标题" />
@@ -127,7 +121,16 @@ class PcMetalInput extends React.Component {
                       <Radio value="有色金属">有色金属</Radio>
                       <Radio value="稀有金属">稀有金属</Radio>
                       <Radio value="黑色金属">黑色金属</Radio>
-                      <Radio value="非金属">非金属</Radio>
+                      <Radio value="贵金属">贵金属</Radio>
+                      <Radio value="耐火材料">耐火材料</Radio>
+                      <Radio value="陶瓷材料">陶瓷材料</Radio>
+                      <Radio value="工业助剂">工业助剂</Radio>
+                      <Radio value="化工材料">化工材料</Radio>
+                      <Radio value="机电工业">机电工业</Radio>
+                      <Radio value="建筑材料">建筑材料</Radio>
+                      <Radio value="固态矿产">固态矿产</Radio>
+                      <Radio value="液态矿产">液态矿产</Radio>
+                      <Radio value="气态矿产">气态矿产</Radio>
                   </RadioGroup>
                 )}
                 </FormItem>
@@ -146,20 +149,4 @@ class PcMetalInput extends React.Component {
         )
     }
 }
-
-// -------------------redux react 绑定--------------------
-
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Form.create({})(PcMetalInput))
+export default Form.create({})(PcMetalInput)

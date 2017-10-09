@@ -8,11 +8,9 @@ import PcHeader from '../../components/PcHeader/pc_header'
 import PcFooter from '../../components/PcFooter/pc_footer'
 import PcPatternMain from './subpage/pc_pattern_main'
 const SubMenu = Menu.SubMenu;
-class pattern extends React.Component {
+class PcPattern extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-        
     }
     render() {
         return (
@@ -27,19 +25,5 @@ class pattern extends React.Component {
     }
 }
 
-// -------------------redux react 绑定--------------------
 
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(pattern)
+export default PcPattern

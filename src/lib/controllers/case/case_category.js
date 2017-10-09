@@ -6,9 +6,8 @@ exports.getCategories = async function(ctx,next) {
   								.find({})
   								.populate({
 							        path:'cases',
-							        select:'name type'
+							        select:'name type meta'
 						        })
   								.exec();
-  	console.log(caseCategories)
     ctx.body = {caseCategories}
 }

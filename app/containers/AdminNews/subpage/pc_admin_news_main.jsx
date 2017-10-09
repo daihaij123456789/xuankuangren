@@ -1,56 +1,20 @@
 import React from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {Router, Route, Link, browserHistory} from 'react-router'
-import {Row,Col, Menu, Icon,message,Form,Input,Button} from 'antd'
+import {Row,Col, Menu, Icon} from 'antd'
 import PcNewsInput from './NewsInput/pc_news_input'
 import PcNewsList from './NewsList/pc_news_list'
-const FormItem = Form.Item;
-const SubMenu = Menu.SubMenu;
 
 import './pc_admin_news_main.less'
-//const SubMenu = Menu.SubMenu;
 class PcAdminNewsMain extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state= {
             current:'userList'
         }
     }
-    
-  componentDidMount() {
-        // 获取商户信息
-        
-    }
-    /*handleSubmit(e)
-    {
-        //页面开始向 API 进行提交数据
-        e.preventDefault();
-        
-            var formData = this.props.form.getFieldsValue();
-            
-            var data = new FormData();
-            data.append( "json", JSON.stringify(formData));
-            var myFetchOptions = {
-            method: 'POST',
-            body:data
-            };
-            
-            fetch("api/introduce/admin/news" , myFetchOptions)
-            .then(response => response.json())
-            .then(json => {
-                console.log(json.data)
-            });
-            
-        
-    };*/
     handleClick(e){
         this.setState({ current: e.key });
     }
     render() { 
-        let {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
         switch(this.state.current){
             case'userList':
                 var List = <PcNewsInput />
@@ -86,20 +50,4 @@ class PcAdminNewsMain extends React.Component {
         )
     }
 }
-
-// -------------------redux react 绑定--------------------
-
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Form.create({})(PcAdminNewsMain))
+export default PcAdminNewsMain

@@ -20,12 +20,12 @@ const users = require('./routes/users');
 app.use(convert(bodyparser));
 app.use(convert(json()));
 app.use(convert(logger()));
-app.use(require('koa-static')(__dirname + '/public/build'));
+app.use(require('koa-static')(__dirname + '/public/build/components'));
 app.keys = ['xuankuangren'];
 app.use(convert(session(app)));
 app.use(co.wrap(koaBody({ multipart: true,formidable:{uploadDir: __dirname}})));
 app.use(views(__dirname + '/views', {
-	extension: 'ejs'
+	extension: 'jade'
 }));
 
 // logger

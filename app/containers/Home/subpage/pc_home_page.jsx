@@ -1,15 +1,9 @@
 import React from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {Router, Route, Link, browserHistory} from 'react-router'
 import PcHomePage from '../../../components/PcHomePage/pc_home_page'
 import PcHomePageBottom from './pc_home_page_bottom'
-import './pc_body.less'
 class PcHomePages extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state={
             pageArr : []
         }
@@ -33,19 +27,4 @@ class PcHomePages extends React.Component {
     }
 }
 
-// -------------------redux react 绑定--------------------
-
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PcHomePages)
+export default PcHomePages

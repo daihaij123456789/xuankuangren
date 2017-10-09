@@ -1,4 +1,4 @@
-.ant-notification-notice-close {
+/* .ant-notification-notice-close {
     position: absolute;
     right: 16px;
     top: 10px;
@@ -59,9 +59,9 @@
     animation-name: NotificationFadeOut;
     -webkit-animation-play-state: running;
     animation-play-state: running
-}
+} */
 
-@-webkit-keyframes NotificationFadeIn {
+/* @-webkit-keyframes NotificationFadeIn {
     0% {
         opacity: 0;
         left: 335px
@@ -578,9 +578,9 @@ textarea.ant-pagination-options-quick-jumper input {
     color: #ffbf00;
     line-height: 17px;
     position: absolute
-}
+} */
 
-.ant-popover-message-title {
+/* .ant-popover-message-title {
     padding-left: 20px
 }
 
@@ -999,9 +999,9 @@ textarea.ant-pagination-options-quick-jumper input {
 .ant-slider-vertical .ant-slider-mark-text {
     left: 4px;
     white-space: nowrap
-}
+} */
 
-.ant-slider-vertical .ant-slider-step {
+/* .ant-slider-vertical .ant-slider-step {
     width: 4px;
     height: 100%
 }
@@ -1999,9 +1999,9 @@ textarea.ant-pagination-options-quick-jumper input {
     cursor: pointer;
     -webkit-transition: all .3s,width .3s;
     transition: all .3s,width .3s
-}
+} */
 
-.ant-switch:active:after {
+/* .ant-switch:active:after {
     width: 24px
 }
 
@@ -3011,9 +3011,9 @@ tr.ant-table-expanded-row,tr.ant-table-expanded-row:hover {
 
 .ant-tabs-tab-next:hover,.ant-tabs-tab-prev:hover {
     color: rgba(0,0,0,.65)
-}
+} */
 
-.ant-tabs-tab-next-icon,.ant-tabs-tab-prev-icon {
+/* .ant-tabs-tab-next-icon,.ant-tabs-tab-prev-icon {
     position: relative;
     font-style: normal;
     font-weight: 700;
@@ -4007,8 +4007,8 @@ span.ant-transfer-list-search-action {
     -webkit-transition: all .3s ease;
     transition: all .3s ease
 }
-
-.ant-select-tree li .ant-select-tree-node-content-wrapper:hover {
+ */
+/* .ant-select-tree li .ant-select-tree-node-content-wrapper:hover {
     background-color: #ecf6fd
 }
 
@@ -4997,9 +4997,9 @@ li.ant-tree-treenode-disabled>.ant-tree-node-content-wrapper:hover {
 
 .ant-upload-list-picture-card .ant-upload-list-item-uploading.ant-upload-list-item {
     background-color: #fbfbfb
-}
+} */
 
-.ant-upload-list-picture-card .ant-upload-list-item-uploading .ant-upload-list-item-info {
+/* .ant-upload-list-picture-card .ant-upload-list-item-uploading .ant-upload-list-item-info {
     height: auto
 }
 
@@ -5122,6 +5122,6 @@ li.ant-tree-treenode-disabled>.ant-tree-node-content-wrapper:hover {
         padding: 0;
         opacity: 0
     }
-}
+} */
 
 

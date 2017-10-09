@@ -1,17 +1,11 @@
 import React from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {Router, Route, Link, browserHistory} from 'react-router'
-import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card,InputNumber,Row,Col,Menu,Radio} from 'antd'
+import {Table, Input, Icon, Button, Popconfirm, message, Form, Modal, Card, Radio} from 'antd'
 
 const FormItem = Form.Item;
-const MenuItem = Menu.Item;
 const RadioGroup = Radio.Group;
 class PcNewsList extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.columns = [{
               title: 'ID',
               dataIndex: 'key',
@@ -220,20 +214,4 @@ class PcNewsList extends React.Component {
         )
     }
 }
-
-// -------------------redux react 绑定--------------------
-
-function mapStateToProps(state) {
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Form.create({})(PcNewsList))
+export default Form.create({})(PcNewsList)

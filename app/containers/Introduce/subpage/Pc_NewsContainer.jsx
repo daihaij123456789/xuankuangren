@@ -1,7 +1,5 @@
 import React from 'react';
-import {Row, Col} from 'antd';
-import {Tabs, Carousel} from 'antd';
-import PureRenderMixin from 'react-addons-pure-render-mixin'
+import {Row, Col,Tabs, Carousel} from 'antd';
 const TabPane = Tabs.TabPane;
 import PCNewsBlock from '../../../components/PcNewBlock/pc_news_block';
 import PCNewsImageBlock from '../../../components/PcNewsImageBlock/pc_news_image_block';
@@ -10,7 +8,6 @@ import './pc_style.less'
  class PCNewsContainer extends React.Component {
  	constructor(props, context) {
         super(props, context);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state={
             key:'top'
         }
@@ -30,7 +27,7 @@ import './pc_style.less'
 					<Col xs={{ span: 24 }}  sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 22 }} className="container">
 						<div className="leftContainer">
 							<div className="carousel">
-								<Carousel {...settings}>
+								<Carousel {...settings} autoplay>
 									<div><img src={require('../../../images/carousel_1.jpg')}/></div>
 									<div><img src={require('../../../images/carousel_2.jpg')}/></div>
 									<div><img src={require('../../../images/carousel_3.jpg')}/></div>
